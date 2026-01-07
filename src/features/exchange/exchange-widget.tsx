@@ -68,14 +68,8 @@ function CurrencySelector({
                 {selectedCurrency ? (
                     <>
                         <div className="w-6 h-6 rounded-full bg-zinc-700 flex items-center justify-center overflow-hidden">
-                            {selectedCurrency.image ? (
-                                <>
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src={selectedCurrency.image} alt={selectedCurrency.ticker} className="w-5 h-5" />
-                                </>
-                            ) : (
-                                <span className="text-xs font-bold text-zinc-400">{selectedCurrency.ticker.slice(0, 2).toUpperCase()}</span>
-                            )}
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={selectedCurrency.image} alt={selectedCurrency.ticker} className="w-5 h-5" />
                         </div>
                         <span className="font-semibold text-white uppercase">{selectedCurrency.ticker}</span>
                     </>
@@ -122,14 +116,8 @@ function CurrencySelector({
                                         className={`flex items-center gap-3 w-full p-3 hover:bg-zinc-800 transition-colors ${value === currency.ticker ? 'bg-primary/10' : ''}`}
                                     >
                                         <div className="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden">
-                                            {currency.image ? (
-                                                <>
-                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img src={currency.image} alt={currency.ticker} className="w-5 h-5" />
-                                                </>
-                                            ) : (
-                                                <span className="text-xs font-bold text-zinc-400">{currency.ticker.slice(0, 2).toUpperCase()}</span>
-                                            )}
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img src={currency.image} alt={currency.ticker} className="w-5 h-5" />
                                         </div>
                                         <div className="text-left flex-1">
                                             <div className="font-medium text-white uppercase text-sm">{currency.ticker}</div>
@@ -155,7 +143,6 @@ function StepIndicator({ currentStep }: { currentStep: string }) {
         { id: "input", label: "Amount" },
         { id: "confirm", label: "Confirm" },
         { id: "deposit", label: "Deposit" },
-        { id: "processing", label: "Processing" },
         { id: "complete", label: "Done" }
     ]
     const currentIndex = steps.findIndex(s => s.id === currentStep)
@@ -185,10 +172,11 @@ export function ExchangeWidget() {
         minAmount, networkFee,
         addressValid, addressValidating, addressError,
         recipientAddress, refundAddress,
-        transaction, transactionLoading, transactionError,
-        transactionStatus, statusLoading,
+        transaction, transactionLoading, transactionError, transactionStatus,
+        createReceipt, receiptPin, receiptUrl,
         step,
         setFromCurrency, setToCurrency, setAmount, setRecipientAddress, setRefundAddress,
+        setCreateReceipt, setReceiptPin,
         swapCurrencies, setStep,
         fetchCurrencies, fetchEstimate, fetchMinAmount, validateAddress,
         createTransaction, fetchTransactionStatus, reset
@@ -197,10 +185,6 @@ export function ExchangeWidget() {
     const [copied, setCopied] = useState(false)
     const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null)
     const [addressDebounce, setAddressDebounce] = useState<NodeJS.Timeout | null>(null)
-
-    const handleReset = useCallback(() => {
-        reset()
-    }, [reset])
 
     // Initial fetch
     useEffect(() => {
@@ -230,19 +214,12 @@ export function ExchangeWidget() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [recipientAddress, toCurrency])
 
-    // Poll transaction status when waiting for deposit or processing
+    // Poll transaction status
     useEffect(() => {
-        if (!transaction || (step !== "deposit" && step !== "processing")) return;
-
-        const pollStatus = () => {
-            fetchTransactionStatus();
-        };
-
-        pollStatus(); // Check immediately
-        const interval = setInterval(pollStatus, 10000); // Poll every 10 seconds
-
-        return () => clearInterval(interval);
-    }, [transaction, step, fetchTransactionStatus])
+        if (!transaction?.id || step === "complete") return
+        const interval = setInterval(() => fetchTransactionStatus(transaction.id), 10000)
+        return () => clearInterval(interval)
+    }, [transaction?.id, step, fetchTransactionStatus])
 
     const copyToClipboard = async (text: string) => {
         await navigator.clipboard.writeText(text)
@@ -409,6 +386,49 @@ export function ExchangeWidget() {
                                         />
                                     </div>
                                 </details>
+
+                                {/* Receipt Option */}
+                                <div className="mt-4 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                                    <label className="flex items-center gap-3 cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={createReceipt}
+                                            onChange={(e) => setCreateReceipt(e.target.checked)}
+                                            className="w-4 h-4 rounded border-zinc-700 bg-zinc-800 text-primary focus:ring-primary focus:ring-offset-0"
+                                        />
+                                        <div className="flex-1">
+                                            <span className="text-sm font-medium text-white">Create 48-hour receipt</span>
+                                            <p className="text-xs text-zinc-500 mt-0.5">Get a shareable link to track this transaction</p>
+                                        </div>
+                                    </label>
+                                    
+                                    {createReceipt && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: "auto" }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            className="mt-3"
+                                        >
+                                            <label className="text-xs text-zinc-500 mb-2 block">
+                                                Set PIN code (4-8 digits)
+                                            </label>
+                                            <Input
+                                                type="password"
+                                                value={receiptPin}
+                                                onChange={(e) => setReceiptPin(e.target.value.replace(/\D/g, '').slice(0, 8))}
+                                                placeholder="Enter PIN"
+                                                maxLength={8}
+                                                className="bg-zinc-800/50 border-zinc-700 focus:border-primary"
+                                            />
+                                            {receiptPin && receiptPin.length < 4 && (
+                                                <p className="text-xs text-yellow-400 mt-1">
+                                                    <AlertCircle className="w-3 h-3 inline mr-1" />
+                                                    PIN must be at least 4 digits
+                                                </p>
+                                            )}
+                                        </motion.div>
+                                    )}
+                                </div>
                             </motion.div>
                         )}
 
@@ -426,8 +446,8 @@ export function ExchangeWidget() {
                                 </div>
                                 {transactionError && <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm"><AlertCircle className="w-4 h-4 shrink-0" />{transactionError}</div>}
                                 <div className="flex gap-3">
-                                    <Button type="button" variant="outline" onClick={() => setStep("input")} className="flex-1">Back</Button>
-                                    <Button type="button" onClick={createTransaction} disabled={transactionLoading} className="flex-1 bg-gradient-to-r from-primary to-emerald-500">
+                                    <Button variant="outline" onClick={() => setStep("input")} className="flex-1">Back</Button>
+                                    <Button onClick={createTransaction} disabled={transactionLoading} className="flex-1 bg-gradient-to-r from-primary to-emerald-500">
                                         {transactionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Confirm Exchange"}
                                     </Button>
                                 </div>
@@ -453,78 +473,37 @@ export function ExchangeWidget() {
                                 <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-sm">
                                     <AlertCircle className="w-4 h-4 shrink-0" />Send only {fromCurrency.toUpperCase()} to this address
                                 </div>
+                                {receiptUrl && (
+                                    <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <CheckCircle className="w-4 h-4 text-green-400" />
+                                            <span className="text-sm font-medium text-green-400">Receipt Created</span>
+                                        </div>
+                                        <p className="text-xs text-zinc-400 mb-2">Your 48-hour receipt is ready. Share this link to track the transaction:</p>
+                                        <div className="flex items-center gap-2">
+                                            <code className="flex-1 text-xs font-mono text-white bg-zinc-800/50 p-2 rounded break-all">
+                                                {window.location.origin}{receiptUrl}
+                                            </code>
+                                            <Button 
+                                                variant="outline" 
+                                                size="icon" 
+                                                onClick={() => copyToClipboard(`${window.location.origin}${receiptUrl}`)} 
+                                                className="shrink-0"
+                                            >
+                                                {copied ? <CheckCircle className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )}
                                 <div className="text-center">
                                     <Loader2 className="w-6 h-6 animate-spin text-primary mx-auto mb-2" />
                                     <p className="text-zinc-500 text-sm">Waiting for deposit...</p>
                                     <p className="text-zinc-600 text-xs mt-1">ID: {transaction.id}</p>
                                 </div>
-                                <div className="flex gap-3">
-                                    <Button type="button" variant="outline" onClick={() => setStep("confirm")} className="flex-1">
-                                        Back
-                                    </Button>
-                                </div>
                             </motion.div>
                         )}
 
-                        {/* Step 4: Processing */}
-                        {step === "processing" && transaction && (
-                            <motion.div key="processing" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-4">
-                                <div className="text-center">
-                                    <h4 className="text-lg font-semibold text-white mb-2">Processing Exchange</h4>
-                                    <p className="text-zinc-500 text-sm">Your transaction is being processed</p>
-                                </div>
-
-                                {/* Transaction Info */}
-                                <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 space-y-3">
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-zinc-500 text-sm">Transaction ID</span>
-                                        <div className="flex items-center gap-2">
-                                            <code className="text-xs font-mono text-white">{transaction.id}</code>
-                                            <Button type="button" variant="outline" size="icon" onClick={() => copyToClipboard(transaction.id)} className="h-6 w-6 shrink-0">
-                                                {copied ? <CheckCircle className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3" />}
-                                            </Button>
-                                        </div>
-                                    </div>
-                                    
-                                    <div className="border-t border-zinc-800 pt-3">
-                                        <div className="flex justify-between text-sm mb-2">
-                                            <span className="text-zinc-500">Deposit Address</span>
-                                        </div>
-                                        <code className="text-xs font-mono text-white break-all bg-zinc-800/50 p-2 rounded block">{transaction.payinAddress}</code>
-                                    </div>
-
-                                    <div className="border-t border-zinc-800 pt-3">
-                                        <div className="flex justify-between text-sm mb-2">
-                                            <span className="text-zinc-500">Expected Amount</span>
-                                            <span className="text-white font-semibold">{amount} {fromCurrency.toUpperCase()}</span>
-                                        </div>
-                                        <div className="flex justify-between text-sm">
-                                            <span className="text-zinc-500">You'll Receive</span>
-                                            <span className="text-primary font-semibold">≈ {estimatedAmount?.toFixed(6)} {toCurrency.toUpperCase()}</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Processing indicator */}
-                                <div className="text-center py-4">
-                                    <Loader2 className="w-6 h-6 animate-spin text-primary mx-auto mb-2" />
-                                    <p className="text-zinc-500 text-sm">Processing your exchange...</p>
-                                    <p className="text-zinc-600 text-xs mt-2">This usually takes 5-30 minutes</p>
-                                </div>
-
-                                {/* Action buttons */}
-                                <div className="flex gap-3">
-                                    <Button type="button" variant="outline" onClick={() => setStep("deposit")} className="flex-1">
-                                        Back to Deposit Info
-                                    </Button>
-                                    <Button type="button" onClick={handleReset} className="flex-1 bg-gradient-to-r from-primary to-emerald-500">
-                                        New Exchange
-                                    </Button>
-                                </div>
-                            </motion.div>
-                        )}
-
-                        {/* Step 5: Complete */}
+                        {/* Step 4: Complete */}
                         {step === "complete" && (
                             <motion.div key="complete" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-6">
                                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", delay: 0.2 }} className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
@@ -532,7 +511,7 @@ export function ExchangeWidget() {
                                 </motion.div>
                                 <h4 className="text-xl font-bold text-white mb-2">Exchange Complete!</h4>
                                 <p className="text-zinc-500 mb-6">Your {toCurrency.toUpperCase()} has been sent</p>
-                                <Button type="button" onClick={handleReset} className="bg-gradient-to-r from-primary to-emerald-500">New Exchange</Button>
+                                <Button onClick={reset} className="bg-gradient-to-r from-primary to-emerald-500">New Exchange</Button>
                             </motion.div>
                         )}
                     </AnimatePresence>

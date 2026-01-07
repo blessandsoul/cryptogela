@@ -81,14 +81,8 @@ function CurrencySelector({
                 {selectedCurrency ? (
                     <>
                         <div className="w-7 h-7 rounded-full bg-zinc-700 flex items-center justify-center overflow-hidden">
-                            {selectedCurrency.image ? (
-                                <>
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src={selectedCurrency.image} alt={selectedCurrency.ticker} className="w-5 h-5" />
-                                </>
-                            ) : (
-                                <span className="text-xs font-bold text-zinc-400">{selectedCurrency.ticker.slice(0, 2).toUpperCase()}</span>
-                            )}
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={selectedCurrency.image} alt={selectedCurrency.ticker} className="w-5 h-5" />
                         </div>
                         <div className="flex-1 text-left">
                             <span className="font-bold text-white uppercase">{selectedCurrency.ticker}</span>
@@ -142,14 +136,8 @@ function CurrencySelector({
                                         className={`flex items-center gap-3 w-full p-3 hover:bg-zinc-800/80 transition-colors ${value === currency.ticker ? 'bg-primary/10' : ''}`}
                                     >
                                         <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden">
-                                            {currency.image ? (
-                                                <>
-                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img src={currency.image} alt={currency.ticker} className="w-6 h-6" />
-                                                </>
-                                            ) : (
-                                                <span className="text-xs font-bold text-zinc-400">{currency.ticker.slice(0, 2).toUpperCase()}</span>
-                                            )}
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img src={currency.image} alt={currency.ticker} className="w-6 h-6" />
                                         </div>
                                         <div className="text-left flex-1">
                                             <div className="font-semibold text-white uppercase text-sm">{currency.ticker}</div>

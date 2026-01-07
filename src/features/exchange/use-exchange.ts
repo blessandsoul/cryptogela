@@ -1,7 +1,6 @@
 "use client";
 
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 // Types for ChangeNow API
 export interface Currency {
@@ -100,10 +99,15 @@ interface ExchangeStore {
     recipientAddress: string;
     refundAddress: string;
     transaction: ExchangeTransaction | null;
+    transactionStatus: TransactionStatus | null;
     transactionLoading: boolean;
     transactionError: string | null;
-    transactionStatus: TransactionStatus | null;
-    statusLoading: boolean;
+
+    // Receipt
+    createReceipt: boolean;
+    receiptPin: string;
+    receiptId: string | null;
+    receiptUrl: string | null;
 
     // Step
     step: ExchangeStep;
@@ -114,6 +118,8 @@ interface ExchangeStore {
     setAmount: (amount: string) => void;
     setRecipientAddress: (address: string) => void;
     setRefundAddress: (address: string) => void;
+    setCreateReceipt: (create: boolean) => void;
+    setReceiptPin: (pin: string) => void;
     swapCurrencies: () => void;
     setStep: (step: ExchangeStep) => void;
 
@@ -124,15 +130,13 @@ interface ExchangeStore {
     fetchNetworkFee: () => Promise<void>;
     validateAddress: () => Promise<void>;
     createTransaction: () => Promise<void>;
-    fetchTransactionStatus: () => Promise<void>;
+    fetchTransactionStatus: (id: string) => Promise<void>;
     reset: () => void;
 }
 
 const API_BASE = "/api/exchange";
 
-export const useExchangeStore = create<ExchangeStore>()(
-    persist(
-        (set, get) => ({
+export const useExchangeStore = create<ExchangeStore>((set, get) => ({
     // Initial state
     currencies: [],
     currenciesLoading: false,
@@ -156,10 +160,14 @@ export const useExchangeStore = create<ExchangeStore>()(
     recipientAddress: "",
     refundAddress: "",
     transaction: null,
+    transactionStatus: null,
     transactionLoading: false,
     transactionError: null,
-    transactionStatus: null,
-    statusLoading: false,
+
+    createReceipt: false,
+    receiptPin: "",
+    receiptId: null,
+    receiptUrl: null,
 
     step: "input",
 
@@ -185,6 +193,10 @@ export const useExchangeStore = create<ExchangeStore>()(
     },
 
     setRefundAddress: (address) => set({ refundAddress: address }),
+
+    setCreateReceipt: (create) => set({ createReceipt: create }),
+
+    setReceiptPin: (pin) => set({ receiptPin: pin }),
 
     swapCurrencies: () => {
         const { fromCurrency, toCurrency } = get();
@@ -338,6 +350,35 @@ export const useExchangeStore = create<ExchangeStore>()(
 
             const data: ExchangeTransaction = await res.json();
             set({ transaction: data, transactionLoading: false, step: "deposit" });
+
+            // Create receipt if requested
+            const { createReceipt, receiptPin, estimatedAmount } = get();
+            if (createReceipt && receiptPin && receiptPin.length >= 4) {
+                try {
+                    const receiptRes = await fetch('/api/receipt/create', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            transactionId: data.id,
+                            pin: receiptPin,
+                            transactionData: {
+                                fromCurrency,
+                                toCurrency,
+                                amount,
+                                estimatedAmount: estimatedAmount || 0,
+                                recipientAddress,
+                                payinAddress: data.payinAddress
+                            }
+                        })
+                    });
+                    if (receiptRes.ok) {
+                        const receiptData = await receiptRes.json();
+                        set({ receiptId: receiptData.receiptId, receiptUrl: receiptData.receiptUrl });
+                    }
+                } catch (error) {
+                    console.error('Failed to create receipt:', error);
+                }
+            }
         } catch (error) {
             set({
                 transactionError: error instanceof Error ? error.message : "Unknown error",
@@ -346,37 +387,21 @@ export const useExchangeStore = create<ExchangeStore>()(
         }
     },
 
-    fetchTransactionStatus: async () => {
-        const { transaction, step } = get();
-        if (!transaction) return;
-
-        set({ statusLoading: true });
+    fetchTransactionStatus: async (id: string) => {
         try {
-            const res = await fetch(`${API_BASE}/status?id=${transaction.id}`);
-            if (!res.ok) {
-                throw new Error("Failed to fetch transaction status");
-            }
-
+            const res = await fetch(`${API_BASE}/status?id=${id}`);
+            if (!res.ok) throw new Error("Failed to fetch status");
             const data: TransactionStatus = await res.json();
-            set({ transactionStatus: data, statusLoading: false });
+            set({ transactionStatus: data });
 
-            // Auto-progress steps based on transaction status
-            // ChangeNow status values: waiting, confirming, exchanging, sending, finished, failed, refunded, expired
+            // Update step based on status
             if (data.status === "finished") {
                 set({ step: "complete" });
-            } else if (["confirming", "exchanging", "sending"].includes(data.status)) {
-                if (step === "deposit") {
-                    set({ step: "processing" });
-                }
-            } else if (["failed", "refunded", "expired"].includes(data.status)) {
-                set({
-                    transactionError: `Transaction ${data.status}`,
-                    step: "input",
-                });
+            } else if (["exchanging", "sending", "confirming"].includes(data.status)) {
+                set({ step: "processing" });
             }
-        } catch (error) {
-            console.error("Status fetch error:", error);
-            set({ statusLoading: false });
+        } catch {
+            // Silently fail - we'll retry
         }
     },
 
@@ -390,15 +415,12 @@ export const useExchangeStore = create<ExchangeStore>()(
             addressValid: null,
             addressError: null,
             transaction: null,
+            transactionStatus: null,
             transactionError: null,
+            createReceipt: false,
+            receiptPin: "",
+            receiptId: null,
+            receiptUrl: null,
             step: "input",
         }),
-}),
-        {
-            name: "exchange-storage",
-            partialize: (state) => ({
-                // Don't persist anything - keep exchange fresh on reload
-            }),
-        }
-    )
-);
+}));
