@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
@@ -269,31 +270,30 @@ export function HeroSection() {
                         transition={{ delay: 0.8 }}
                         className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-10"
                     >
-                        <Button
-                            asChild
-                            size="lg"
-                            className="group relative px-10 py-7 text-lg font-bold bg-primary text-black hover:bg-primary/90 rounded-2xl shadow-[0_0_4rem_rgba(0,255,189,0.4)] hover:shadow-[0_0_6rem_rgba(0,255,189,0.6)] transition-all duration-500 hover:scale-[1.02]"
+                        <Link
+                            href="#exchange"
+                            className={cn(
+                                buttonVariants({ size: "lg" }),
+                                "group relative px-10 py-7 text-lg font-bold bg-primary text-black hover:bg-primary/90 rounded-2xl shadow-[0_0_4rem_rgba(0,255,189,0.4)] hover:shadow-[0_0_6rem_rgba(0,255,189,0.6)] transition-all duration-500 hover:scale-[1.02]"
+                            )}
                         >
-                            <Link href="#exchange">
-                                <span className="relative z-10 flex items-center">
-                                    Start Trading Now
-                                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
-                                </span>
-                            </Link>
-                        </Button>
-                        <Button
-                            asChild
-                            variant="outline"
-                            size="lg"
-                            className="group px-10 py-7 text-lg font-medium rounded-2xl border-zinc-700/50 bg-zinc-900/50 backdrop-blur-sm hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-300 shadow-[0_0_2rem_rgba(0,0,0,0.5)] hover:shadow-[0_0_3rem_rgba(0,255,189,0.1)]"
+                            <span className="relative z-10 flex items-center">
+                                Start Trading Now
+                                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
+                            </span>
+                        </Link>
+                        <Link
+                            href="#faq"
+                            className={cn(
+                                buttonVariants({ variant: "outline", size: "lg" }),
+                                "group px-10 py-7 text-lg font-medium rounded-2xl border-zinc-700/50 bg-zinc-900/50 backdrop-blur-sm hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-300 shadow-[0_0_2rem_rgba(0,0,0,0.5)] hover:shadow-[0_0_3rem_rgba(0,255,189,0.1)]"
+                            )}
                         >
-                            <Link href="#faq">
-                                <span className="flex items-center gap-2">
-                                    Learn More
-                                    <HelpCircle className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                                </span>
-                            </Link>
-                        </Button>
+                            <span className="flex items-center gap-2">
+                                Learn More
+                                <HelpCircle className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                            </span>
+                        </Link>
                     </motion.div>
 
                     {/* Trust Stats with Cards */}
