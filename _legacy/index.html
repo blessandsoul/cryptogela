@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>itSwap.fun | Professional Solana Infrastructure</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<nav>
+    <a href="index.html" class="logo">itSwap<span>.fun</span></a>
+    <ul>
+        <li><a href="#exchange">Exchange</a></li>
+        <li><a href="#faq">Safety & FAQ</a></li>
+    </ul>
+    <a href="YOUR_PUMPFUN_LINK" target="_blank" class="btn-main">BUY $ITSWAP</a>
+</nav>
+
+<section class="trading-area" id="exchange">
+    <div class="trade-box" data-aos="fade-right">
+        <h2 class="step-title"><span>01</span> STEP ONE: GET SOL</h2>
+        <div class="exchange-massive">
+            <div class="widget-overlay-top"></div>
+            <iframe id='iframe-widget' 
+                src='https://changenow.io/embeds/exchange-widget/v2/widget.html?FAQ=false&amount=1&amountFiat=1500&backgroundColor=050505&darkMode=true&from=sol&fromFiat=eur&horizontal=false&isFiat=false&lang=en-US&link_id=2769efae5d4a4b&locales=false&logo=false&primaryColor=00ffbd&to=sol&toFiat=eth&toTheMoon=false' 
+                style="height: 500px; width: 100%; border: none;">
+            </iframe>
+        </div>
+    </div>
+
+    <div class="trade-box" data-aos="fade-left">
+        <h2 class="step-title"><span>02</span> STEP TWO: BUY $ITSWAP</h2>
+        <div class="live-feed-container">
+            <div class="feed-header">
+                <span class="dot"></span> LIVE ACTIVITY ON PUMP.FUN
+            </div>
+            <div id="live-transactions" class="feed-content">
+                </div>
+            <a href="YOUR_PUMPFUN_LINK" target="_blank" class="pump-link-main">TRADE ON PUMP.FUN 🚀</a>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section" id="faq">
+    <h2 data-aos="fade-up">SAFETY & FAQ</h2>
+    <div class="accordion-container">
+        <div class="accordion-item" data-aos="fade-up">
+            <button class="accordion-header">Is itSwap safe? <span class="icon-arrow">▼</span></button>
+            <div class="accordion-content">itSwap is non-custodial. We use enterprise-grade APIs to ensure your swaps are secure, private, and fast.</div>
+        </div>
+        <div class="accordion-item" data-aos="fade-up">
+            <button class="accordion-header">How to use? <span class="icon-arrow">▼</span></button>
+            <div class="accordion-content">Use Step 1 to exchange any crypto for SOL. Then use Step 2 to buy $ITSWAP directly on Pump.fun.</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>itSwap.fun © 2026 | Professional DeFi Solutions</p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 1000, once: true });
+
+    // FAQ Accordion
+    document.querySelectorAll('.accordion-header').forEach(button => {
+        button.addEventListener('click', () => {
+            const item = button.parentElement;
+            item.classList.toggle('active');
+            const content = item.querySelector('.accordion-content');
+            content.style.maxHeight = item.classList.contains('active') ? content.scrollHeight + "px" : 0;
+        });
+    });
+
+    // WORKING LIVE FEED SIMULATION
+    const feed = document.getElementById('live-transactions');
+    const solAmounts = [0.5, 1.2, 3.8, 0.9, 8.5, 12.0, 0.4, 6.2, 1.1];
+    const wallets = ["7xV...9zL", "4kM...2wQ", "9rT...5pX", "1bB...8nM", "6fG...3kL", "2hN...9jW"];
+
+    function addTx() {
+        const amount = solAmounts[Math.floor(Math.random() * solAmounts.length)];
+        const wallet = wallets[Math.floor(Math.random() * wallets.length)];
+        const tx = document.createElement('div');
+        tx.className = 'tx-item';
+        tx.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#00ffbd; font-weight:bold;">BUY</span>
+                <span style="color:#fff;">${amount} SOL</span>
+            </div>
+            <div style="font-size:10px; color:#444; margin-top:5px;">Wallet: ${wallet} <span style="float:right;">just now</span></div>
+        `;
+        feed.prepend(tx);
+        if (feed.children.length > 6) feed.removeChild(feed.lastChild);
+    }
+    setInterval(addTx, 3500);
+</script>
+</body>
+</html>

@@ -1,65 +1,119 @@
-import Image from "next/image";
+import { Navbar } from "@/components/layout/navbar";
+import { HeroSection } from "@/features/home/hero-section";
+import { PartnersSection } from "@/features/home/partners-section";
+import { FeaturesSection } from "@/features/home/features-section";
+import { CalculatorSection } from "@/features/home/calculator-section";
+import { TradingSection } from "@/features/home/trading-section";
+import { ComparisonSection } from "@/features/home/comparison-section";
+import { TestimonialsSection } from "@/features/home/testimonials-section";
+import { SecuritySection } from "@/features/home/security-section";
+import { ReferralBanner } from "@/features/home/referral-banner";
+import { FAQSection } from "@/features/faq/faq-section";
+import { Footer } from "@/components/layout/footer";
+import { StickyCTA } from "@/components/layout/sticky-cta";
+import { ChatWidget } from "@/components/layout/chat-widget";
 
+/**
+ * itSwap.fun Landing Page
+ * 
+ * Architecture: Feature-based component composition
+ * Design System: 2025 Minimal (Linear/Vercel aesthetic)
+ * 
+ * Section Order (Optimized for Conversion):
+ * 1. Hero → Immediate value proposition & primary CTA
+ * 2. Partners → Social proof (trust first)
+ * 3. Features → What makes us different
+ * 4. Calculator → Interactive engagement (pre-conversion hook)
+ * 5. Trading Area → Primary conversion action
+ * 6. Comparison → Overcome objections
+ * 7. Testimonials → Peer validation
+ * 8. Security → Trust reinforcement
+ * 9. Referral → Secondary conversion path
+ * 10. FAQ → Address remaining concerns
+ */
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="min-h-screen relative overflow-hidden bg-black">
+      {/* Navigation - Glassmorphic sticky header */}
+      <Navbar />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          ABOVE THE FOLD: Capture attention + immediate value prop
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* Hero: Animated gradient, 3D elements, trust counters, primary CTA */}
+      <HeroSection />
+
+      {/* Partners: Immediate social proof - builds trust before features */}
+      <PartnersSection />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          VALUE PROPOSITION: Why choose itSwap?
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* Features: 4 key differentiators with glassmorphism cards */}
+      <FeaturesSection />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          ENGAGEMENT: Interactive elements before conversion
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* Calculator: "You send → You get" - Reduces friction */}
+      <CalculatorSection />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          PRIMARY CONVERSION: The main action area
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* Trading: Get SOL + Buy $ITSWAP with ShadCN Tabs */}
+      <TradingSection />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          OVERCOME OBJECTIONS: Why us over competitors?
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* Comparison: itSwap vs CEX vs Other DEX */}
+      <ComparisonSection />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          SOCIAL PROOF: Real user validation
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* Testimonials: Carousel with 5-star reviews */}
+      <TestimonialsSection />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          TRUST REINFORCEMENT: Security matters in crypto
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* Security: Non-custodial, encryption, audits */}
+      <SecuritySection />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          SECONDARY CONVERSION: Alternative action path
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* Referral: Earn $10 per friend */}
+      <ReferralBanner />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          ADDRESS CONCERNS: Pre-purchase questions
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* FAQ: 8 comprehensive Q&A items */}
+      <FAQSection />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          FOOTER & FLOATING ELEMENTS
+          ═══════════════════════════════════════════════════════════════ */}
+
+      <Footer />
+
+      {/* Sticky Mobile CTA (appears on scroll) */}
+      <StickyCTA />
+
+      {/* AI Chat Widget (bottom-right) */}
+      <ChatWidget />
+    </main>
   );
 }
