@@ -102,6 +102,8 @@ interface ExchangeStore {
     transaction: ExchangeTransaction | null;
     transactionLoading: boolean;
     transactionError: string | null;
+    transactionStatus: TransactionStatus | null;
+    statusLoading: boolean;
 
     // Step
     step: ExchangeStep;
@@ -122,6 +124,7 @@ interface ExchangeStore {
     fetchNetworkFee: () => Promise<void>;
     validateAddress: () => Promise<void>;
     createTransaction: () => Promise<void>;
+    fetchTransactionStatus: () => Promise<void>;
     reset: () => void;
 }
 
@@ -155,6 +158,8 @@ export const useExchangeStore = create<ExchangeStore>()(
     transaction: null,
     transactionLoading: false,
     transactionError: null,
+    transactionStatus: null,
+    statusLoading: false,
 
     step: "input",
 
@@ -338,6 +343,40 @@ export const useExchangeStore = create<ExchangeStore>()(
                 transactionError: error instanceof Error ? error.message : "Unknown error",
                 transactionLoading: false,
             });
+        }
+    },
+
+    fetchTransactionStatus: async () => {
+        const { transaction, step } = get();
+        if (!transaction) return;
+
+        set({ statusLoading: true });
+        try {
+            const res = await fetch(`${API_BASE}/status?id=${transaction.id}`);
+            if (!res.ok) {
+                throw new Error("Failed to fetch transaction status");
+            }
+
+            const data: TransactionStatus = await res.json();
+            set({ transactionStatus: data, statusLoading: false });
+
+            // Auto-progress steps based on transaction status
+            // ChangeNow status values: waiting, confirming, exchanging, sending, finished, failed, refunded, expired
+            if (data.status === "finished") {
+                set({ step: "complete" });
+            } else if (["confirming", "exchanging", "sending"].includes(data.status)) {
+                if (step === "deposit") {
+                    set({ step: "processing" });
+                }
+            } else if (["failed", "refunded", "expired"].includes(data.status)) {
+                set({
+                    transactionError: `Transaction ${data.status}`,
+                    step: "input",
+                });
+            }
+        } catch (error) {
+            console.error("Status fetch error:", error);
+            set({ statusLoading: false });
         }
     },
 

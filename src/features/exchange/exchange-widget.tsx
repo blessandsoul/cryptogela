@@ -186,11 +186,12 @@ export function ExchangeWidget() {
         addressValid, addressValidating, addressError,
         recipientAddress, refundAddress,
         transaction, transactionLoading, transactionError,
+        transactionStatus, statusLoading,
         step,
         setFromCurrency, setToCurrency, setAmount, setRecipientAddress, setRefundAddress,
         swapCurrencies, setStep,
         fetchCurrencies, fetchEstimate, fetchMinAmount, validateAddress,
-        createTransaction, reset
+        createTransaction, fetchTransactionStatus, reset
     } = useExchangeStore()
 
     const [copied, setCopied] = useState(false)
@@ -228,6 +229,20 @@ export function ExchangeWidget() {
         return () => { if (addressDebounce) clearTimeout(addressDebounce) }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [recipientAddress, toCurrency])
+
+    // Poll transaction status when waiting for deposit or processing
+    useEffect(() => {
+        if (!transaction || (step !== "deposit" && step !== "processing")) return;
+
+        const pollStatus = () => {
+            fetchTransactionStatus();
+        };
+
+        pollStatus(); // Check immediately
+        const interval = setInterval(pollStatus, 10000); // Poll every 10 seconds
+
+        return () => clearInterval(interval);
+    }, [transaction, step, fetchTransactionStatus])
 
     const copyToClipboard = async (text: string) => {
         await navigator.clipboard.writeText(text)
