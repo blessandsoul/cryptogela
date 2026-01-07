@@ -143,6 +143,7 @@ function StepIndicator({ currentStep }: { currentStep: string }) {
         { id: "input", label: "Amount" },
         { id: "confirm", label: "Confirm" },
         { id: "deposit", label: "Deposit" },
+        { id: "processing", label: "Processing" },
         { id: "complete", label: "Done" }
     ]
     const currentIndex = steps.findIndex(s => s.id === currentStep)
@@ -503,7 +504,53 @@ export function ExchangeWidget() {
                             </motion.div>
                         )}
 
-                        {/* Step 4: Complete */}
+                        {/* Step 4: Processing */}
+                        {step === "processing" && transactionStatus && (
+                            <motion.div key="processing" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-4">
+                                <div className="text-center">
+                                    <motion.div
+                                        animate={{ rotate: 360 }}
+                                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                        className="w-16 h-16 rounded-full bg-primary/20 border-4 border-primary border-t-transparent mx-auto mb-4"
+                                    />
+                                    <h4 className="text-lg font-semibold text-white mb-2">Processing Exchange</h4>
+                                    <p className="text-zinc-500 text-sm">Your transaction is being processed</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 space-y-3">
+                                    <div className="flex justify-between">
+                                        <span className="text-zinc-500">Status</span>
+                                        <span className="font-semibold text-primary capitalize">{transactionStatus.status}</span>
+                                    </div>
+                                    {transactionStatus.payinHash && (
+                                        <div className="flex justify-between">
+                                            <span className="text-zinc-500">Deposit confirmed</span>
+                                            <CheckCircle className="w-4 h-4 text-green-500" />
+                                        </div>
+                                    )}
+                                    {transactionStatus.amountSend && (
+                                        <div className="flex justify-between">
+                                            <span className="text-zinc-500">Amount sent</span>
+                                            <span className="text-white">{transactionStatus.amountSend} {fromCurrency.toUpperCase()}</span>
+                                        </div>
+                                    )}
+                                    {transactionStatus.expectedReceiveAmount && (
+                                        <div className="flex justify-between">
+                                            <span className="text-zinc-500">Expected to receive</span>
+                                            <span className="text-primary">≈ {transactionStatus.expectedReceiveAmount} {toCurrency.toUpperCase()}</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="flex items-center gap-2 p-3 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm">
+                                    <Info className="w-4 h-4 shrink-0" />
+                                    This usually takes 5-30 minutes
+                                </div>
+                                <div className="text-center">
+                                    <p className="text-zinc-600 text-xs">Transaction ID: {transactionStatus.id}</p>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {/* Step 5: Complete */}
                         {step === "complete" && (
                             <motion.div key="complete" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-6">
                                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", delay: 0.2 }} className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
