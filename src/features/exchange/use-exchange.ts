@@ -103,6 +103,12 @@ interface ExchangeStore {
     transactionLoading: boolean;
     transactionError: string | null;
 
+    // Receipt
+    createReceipt: boolean;
+    receiptPin: string;
+    receiptId: string | null;
+    receiptUrl: string | null;
+
     // Step
     step: ExchangeStep;
 
@@ -112,6 +118,8 @@ interface ExchangeStore {
     setAmount: (amount: string) => void;
     setRecipientAddress: (address: string) => void;
     setRefundAddress: (address: string) => void;
+    setCreateReceipt: (create: boolean) => void;
+    setReceiptPin: (pin: string) => void;
     swapCurrencies: () => void;
     setStep: (step: ExchangeStep) => void;
 
@@ -156,6 +164,11 @@ export const useExchangeStore = create<ExchangeStore>((set, get) => ({
     transactionLoading: false,
     transactionError: null,
 
+    createReceipt: false,
+    receiptPin: "",
+    receiptId: null,
+    receiptUrl: null,
+
     step: "input",
 
     // Setters
@@ -180,6 +193,10 @@ export const useExchangeStore = create<ExchangeStore>((set, get) => ({
     },
 
     setRefundAddress: (address) => set({ refundAddress: address }),
+
+    setCreateReceipt: (create) => set({ createReceipt: create }),
+
+    setReceiptPin: (pin) => set({ receiptPin: pin }),
 
     swapCurrencies: () => {
         const { fromCurrency, toCurrency } = get();
@@ -333,6 +350,35 @@ export const useExchangeStore = create<ExchangeStore>((set, get) => ({
 
             const data: ExchangeTransaction = await res.json();
             set({ transaction: data, transactionLoading: false, step: "deposit" });
+
+            // Create receipt if requested
+            const { createReceipt, receiptPin, estimatedAmount } = get();
+            if (createReceipt && receiptPin && receiptPin.length >= 4) {
+                try {
+                    const receiptRes = await fetch('/api/receipt/create', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            transactionId: data.id,
+                            pin: receiptPin,
+                            transactionData: {
+                                fromCurrency,
+                                toCurrency,
+                                amount,
+                                estimatedAmount: estimatedAmount || 0,
+                                recipientAddress,
+                                payinAddress: data.payinAddress
+                            }
+                        })
+                    });
+                    if (receiptRes.ok) {
+                        const receiptData = await receiptRes.json();
+                        set({ receiptId: receiptData.receiptId, receiptUrl: receiptData.receiptUrl });
+                    }
+                } catch (error) {
+                    console.error('Failed to create receipt:', error);
+                }
+            }
         } catch (error) {
             set({
                 transactionError: error instanceof Error ? error.message : "Unknown error",
@@ -371,6 +417,10 @@ export const useExchangeStore = create<ExchangeStore>((set, get) => ({
             transaction: null,
             transactionStatus: null,
             transactionError: null,
+            createReceipt: false,
+            receiptPin: "",
+            receiptId: null,
+            receiptUrl: null,
             step: "input",
         }),
 }));

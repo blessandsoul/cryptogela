@@ -11,11 +11,13 @@ import {
     Rocket,
     Coins,
     HelpCircle,
-    Zap
+    Zap,
+    Sparkles
 } from "lucide-react"
 
 const navLinks = [
     { href: "#exchange", label: "Exchange", icon: Coins },
+    { href: "/demo", label: "Demo", icon: Sparkles },
     { href: "#faq", label: "FAQ", icon: HelpCircle },
 ]
 

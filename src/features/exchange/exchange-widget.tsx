@@ -173,8 +173,10 @@ export function ExchangeWidget() {
         addressValid, addressValidating, addressError,
         recipientAddress, refundAddress,
         transaction, transactionLoading, transactionError, transactionStatus,
+        createReceipt, receiptPin, receiptUrl,
         step,
         setFromCurrency, setToCurrency, setAmount, setRecipientAddress, setRefundAddress,
+        setCreateReceipt, setReceiptPin,
         swapCurrencies, setStep,
         fetchCurrencies, fetchEstimate, fetchMinAmount, validateAddress,
         createTransaction, fetchTransactionStatus, reset
@@ -384,6 +386,49 @@ export function ExchangeWidget() {
                                         />
                                     </div>
                                 </details>
+
+                                {/* Receipt Option */}
+                                <div className="mt-4 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                                    <label className="flex items-center gap-3 cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={createReceipt}
+                                            onChange={(e) => setCreateReceipt(e.target.checked)}
+                                            className="w-4 h-4 rounded border-zinc-700 bg-zinc-800 text-primary focus:ring-primary focus:ring-offset-0"
+                                        />
+                                        <div className="flex-1">
+                                            <span className="text-sm font-medium text-white">Create 48-hour receipt</span>
+                                            <p className="text-xs text-zinc-500 mt-0.5">Get a shareable link to track this transaction</p>
+                                        </div>
+                                    </label>
+                                    
+                                    {createReceipt && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: "auto" }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            className="mt-3"
+                                        >
+                                            <label className="text-xs text-zinc-500 mb-2 block">
+                                                Set PIN code (4-8 digits)
+                                            </label>
+                                            <Input
+                                                type="password"
+                                                value={receiptPin}
+                                                onChange={(e) => setReceiptPin(e.target.value.replace(/\D/g, '').slice(0, 8))}
+                                                placeholder="Enter PIN"
+                                                maxLength={8}
+                                                className="bg-zinc-800/50 border-zinc-700 focus:border-primary"
+                                            />
+                                            {receiptPin && receiptPin.length < 4 && (
+                                                <p className="text-xs text-yellow-400 mt-1">
+                                                    <AlertCircle className="w-3 h-3 inline mr-1" />
+                                                    PIN must be at least 4 digits
+                                                </p>
+                                            )}
+                                        </motion.div>
+                                    )}
+                                </div>
                             </motion.div>
                         )}
 
@@ -428,6 +473,28 @@ export function ExchangeWidget() {
                                 <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-sm">
                                     <AlertCircle className="w-4 h-4 shrink-0" />Send only {fromCurrency.toUpperCase()} to this address
                                 </div>
+                                {receiptUrl && (
+                                    <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <CheckCircle className="w-4 h-4 text-green-400" />
+                                            <span className="text-sm font-medium text-green-400">Receipt Created</span>
+                                        </div>
+                                        <p className="text-xs text-zinc-400 mb-2">Your 48-hour receipt is ready. Share this link to track the transaction:</p>
+                                        <div className="flex items-center gap-2">
+                                            <code className="flex-1 text-xs font-mono text-white bg-zinc-800/50 p-2 rounded break-all">
+                                                {window.location.origin}{receiptUrl}
+                                            </code>
+                                            <Button 
+                                                variant="outline" 
+                                                size="icon" 
+                                                onClick={() => copyToClipboard(`${window.location.origin}${receiptUrl}`)} 
+                                                className="shrink-0"
+                                            >
+                                                {copied ? <CheckCircle className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )}
                                 <div className="text-center">
                                     <Loader2 className="w-6 h-6 animate-spin text-primary mx-auto mb-2" />
                                     <p className="text-zinc-500 text-sm">Waiting for deposit...</p>
