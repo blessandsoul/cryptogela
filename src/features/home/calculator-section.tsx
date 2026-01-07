@@ -81,8 +81,12 @@ function CurrencySelector({
                 {selectedCurrency ? (
                     <>
                         <div className="w-7 h-7 rounded-full bg-zinc-700 flex items-center justify-center overflow-hidden">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={selectedCurrency.image} alt={selectedCurrency.ticker} className="w-5 h-5" />
+                            {selectedCurrency.image ? (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img src={selectedCurrency.image} alt={selectedCurrency.ticker} className="w-5 h-5" />
+                            ) : (
+                                <span className="text-xs font-bold text-zinc-400">{selectedCurrency.ticker.slice(0, 2).toUpperCase()}</span>
+                            )}
                         </div>
                         <div className="flex-1 text-left">
                             <span className="font-bold text-white uppercase">{selectedCurrency.ticker}</span>
@@ -136,8 +140,12 @@ function CurrencySelector({
                                         className={`flex items-center gap-3 w-full p-3 hover:bg-zinc-800/80 transition-colors ${value === currency.ticker ? 'bg-primary/10' : ''}`}
                                     >
                                         <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden">
-                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img src={currency.image} alt={currency.ticker} className="w-6 h-6" />
+                                            {currency.image ? (
+                                                // eslint-disable-next-line @next/next/no-img-element
+                                                <img src={currency.image} alt={currency.ticker} className="w-6 h-6" />
+                                            ) : (
+                                                <span className="text-xs font-bold text-zinc-400">{currency.ticker.slice(0, 2).toUpperCase()}</span>
+                                            )}
                                         </div>
                                         <div className="text-left flex-1">
                                             <div className="font-semibold text-white uppercase text-sm">{currency.ticker}</div>
@@ -272,13 +280,13 @@ export function CalculatorSection() {
                         Real-time Rates
                     </Badge>
                     <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4">
-                        <span className="bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
-                            Instant
+                        <span className="text-primary">
+                            itSwap
                         </span>{" "}
-                        <span className="text-primary">Calculator</span>
+                        <span className="bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">Calculator</span>
                     </h2>
                     <p className="text-zinc-500 max-w-lg mx-auto">
-                        Preview your exchange with live rates from ChangeNow. Zero hidden fees, what you see is what you get.
+                        Preview your exchange with live rates. Zero hidden fees, what you see is what you get.
                     </p>
                 </motion.div>
 
@@ -389,7 +397,7 @@ export function CalculatorSection() {
                             </div>
                             <div className="bg-zinc-800/50 rounded-xl p-3 text-center">
                                 <div className="text-xs text-zinc-500 mb-1">Arrival</div>
-                                <div className="text-sm font-semibold text-white">~5-30 min</div>
+                                <div className="text-sm font-semibold text-white">5-10 min</div>
                             </div>
                         </div>
 

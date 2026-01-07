@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const CHANGENOW_API = "https://api.changenow.io/v1";
+const API_KEY = process.env.CHANGENOW_API_KEY || "";
 
 export async function GET(request: NextRequest) {
     const { searchParams } = request.nextUrl;
@@ -16,13 +17,31 @@ export async function GET(request: NextRequest) {
 
     try {
         const res = await fetch(
-            `${CHANGENOW_API}/validate/address?currency=${currency}&address=${encodeURIComponent(address)}`
+            `${CHANGENOW_API}/validate/address?currency=${currency}&address=${encodeURIComponent(address)}&api_key=${API_KEY}`
         );
 
         if (!res.ok) {
-            const error = await res.json();
+            // If 404, validation is not available for this currency - skip validation
+            if (res.status === 404) {
+                return NextResponse.json({ result: null, message: "Validation not available for this currency" });
+            }
+            
+            let errorMessage = "Validation failed";
+            const contentType = res.headers.get("content-type");
+            
+            if (contentType?.includes("application/json")) {
+                try {
+                    const error = await res.json();
+                    errorMessage = error.message || errorMessage;
+                } catch {
+                    errorMessage = "Invalid address format";
+                }
+            } else {
+                errorMessage = "Invalid address format";
+            }
+            
             return NextResponse.json(
-                { error: error.message || "Validation failed" },
+                { error: errorMessage },
                 { status: res.status }
             );
         }

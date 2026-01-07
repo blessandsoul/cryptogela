@@ -68,8 +68,12 @@ function CurrencySelector({
                 {selectedCurrency ? (
                     <>
                         <div className="w-6 h-6 rounded-full bg-zinc-700 flex items-center justify-center overflow-hidden">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={selectedCurrency.image} alt={selectedCurrency.ticker} className="w-5 h-5" />
+                            {selectedCurrency.image ? (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img src={selectedCurrency.image} alt={selectedCurrency.ticker} className="w-5 h-5" />
+                            ) : (
+                                <span className="text-xs font-bold text-zinc-400">{selectedCurrency.ticker.slice(0, 2).toUpperCase()}</span>
+                            )}
                         </div>
                         <span className="font-semibold text-white uppercase">{selectedCurrency.ticker}</span>
                     </>
@@ -116,8 +120,12 @@ function CurrencySelector({
                                         className={`flex items-center gap-3 w-full p-3 hover:bg-zinc-800 transition-colors ${value === currency.ticker ? 'bg-primary/10' : ''}`}
                                     >
                                         <div className="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden">
-                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img src={currency.image} alt={currency.ticker} className="w-5 h-5" />
+                                            {currency.image ? (
+                                                // eslint-disable-next-line @next/next/no-img-element
+                                                <img src={currency.image} alt={currency.ticker} className="w-5 h-5" />
+                                            ) : (
+                                                <span className="text-xs font-bold text-zinc-400">{currency.ticker.slice(0, 2).toUpperCase()}</span>
+                                            )}
                                         </div>
                                         <div className="text-left flex-1">
                                             <div className="font-medium text-white uppercase text-sm">{currency.ticker}</div>
@@ -557,7 +565,32 @@ export function ExchangeWidget() {
                                     <CheckCircle className="w-8 h-8 text-green-500" />
                                 </motion.div>
                                 <h4 className="text-xl font-bold text-white mb-2">Exchange Complete!</h4>
-                                <p className="text-zinc-500 mb-6">Your {toCurrency.toUpperCase()} has been sent</p>
+                                <p className="text-zinc-500 mb-4">Your {toCurrency.toUpperCase()} has been sent</p>
+                                
+                                {/* Receipt link for completed transaction */}
+                                {receiptUrl && (
+                                    <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-left mb-6 mx-auto max-w-md">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <CheckCircle className="w-4 h-4 text-green-400" />
+                                            <span className="text-sm font-medium text-green-400">Transaction Receipt</span>
+                                        </div>
+                                        <p className="text-xs text-zinc-400 mb-2">View or share your transaction receipt:</p>
+                                        <div className="flex items-center gap-2">
+                                            <code className="flex-1 text-xs font-mono text-white bg-zinc-800/50 p-2 rounded break-all">
+                                                {window.location.origin}{receiptUrl}
+                                            </code>
+                                            <Button 
+                                                variant="outline" 
+                                                size="icon" 
+                                                onClick={() => copyToClipboard(`${window.location.origin}${receiptUrl}`)} 
+                                                className="shrink-0"
+                                            >
+                                                {copied ? <CheckCircle className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )}
+                                
                                 <Button onClick={reset} className="bg-gradient-to-r from-primary to-emerald-500">New Exchange</Button>
                             </motion.div>
                         )}

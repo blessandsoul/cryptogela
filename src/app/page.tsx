@@ -7,7 +7,7 @@ import { TradingSection } from "@/features/home/trading-section";
 import { ComparisonSection } from "@/features/home/comparison-section";
 import { TestimonialsSection } from "@/features/home/testimonials-section";
 import { SecuritySection } from "@/features/home/security-section";
-import { ReferralBanner } from "@/features/home/referral-banner";
+import { MemecoinSection } from "@/features/home/memecoin-section";
 import { FAQSection } from "@/features/faq/faq-section";
 import { Footer } from "@/components/layout/footer";
 import { StickyCTA } from "@/components/layout/sticky-cta";
@@ -28,8 +28,7 @@ import { ChatWidget } from "@/components/layout/chat-widget";
  * 6. Comparison → Overcome objections
  * 7. Testimonials → Peer validation
  * 8. Security → Trust reinforcement
- * 9. Referral → Secondary conversion path
- * 10. FAQ → Address remaining concerns
+ * 9. FAQ → Address remaining concerns
  */
 export default function Home() {
   return (
@@ -90,11 +89,12 @@ export default function Home() {
       <SecuritySection />
 
       {/* ═══════════════════════════════════════════════════════════════
-          SECONDARY CONVERSION: Alternative action path
+          MEMECOIN COMMUNITY: Social media & community links
           ═══════════════════════════════════════════════════════════════ */}
 
-      {/* Referral: Earn $10 per friend */}
-      <ReferralBanner />
+      {/* Memecoin: PumpFun, Twitter, Telegram links */}
+      <MemecoinSection />
+
 
       {/* ═══════════════════════════════════════════════════════════════
           ADDRESS CONCERNS: Pre-purchase questions

@@ -4,39 +4,9 @@ import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { ArrowRight, Sparkles, Zap, Shield, TrendingUp, HelpCircle } from "lucide-react"
-
-// Animated counter hook
-function useCounter(end: number, duration: number = 2000) {
-    const [count, setCount] = useState(0)
-    const [hasStarted, setHasStarted] = useState(false)
-
-    useEffect(() => {
-        if (!hasStarted) return
-
-        let startTime: number
-        let animationFrame: number
-
-        const animate = (timestamp: number) => {
-            if (!startTime) startTime = timestamp
-            const progress = Math.min((timestamp - startTime) / duration, 1)
-            setCount(Math.floor(progress * end))
-
-            if (progress < 1) {
-                animationFrame = requestAnimationFrame(animate)
-            }
-        }
-
-        animationFrame = requestAnimationFrame(animate)
-        return () => cancelAnimationFrame(animationFrame)
-    }, [end, duration, hasStarted])
-
-    return { count, start: () => setHasStarted(true) }
-}
+import { ArrowRight, Sparkles, HelpCircle } from "lucide-react"
 
 // Animated floating orbs
 function FloatingOrb({ delay, size, position, intensity }: {
@@ -134,8 +104,6 @@ export function HeroSection() {
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
     const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95])
 
-    const usersCounter = useCounter(50000, 2500)
-    const volumeCounter = useCounter(125, 2000)
 
     // Mouse follower effect
     const mouseX = useMotionValue(0)
@@ -144,11 +112,6 @@ export function HeroSection() {
     const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 })
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            usersCounter.start()
-            volumeCounter.start()
-        }, 500)
-
         const handleMouseMove = (e: MouseEvent) => {
             const rect = containerRef.current?.getBoundingClientRect()
             if (rect) {
@@ -159,7 +122,6 @@ export function HeroSection() {
 
         window.addEventListener('mousemove', handleMouseMove)
         return () => {
-            clearTimeout(timer)
             window.removeEventListener('mousemove', handleMouseMove)
         }
     }, [])
@@ -223,12 +185,12 @@ export function HeroSection() {
                             variant="outline"
                             className="px-5 py-2.5 text-sm font-semibold bg-primary/10 border-primary/30 text-primary shadow-[0_0_2rem_rgba(0,255,189,0.2)] backdrop-blur-sm"
                         >
-                            <span className="relative flex h-2.5 w-2.5 mr-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
-                            </span>
-                            Live on Solana Mainnet
-                            <Sparkles className="ml-2 w-4 h-4" />
+                            <img 
+                                src="https://statics.solscan.io/solscan-img/token_creator_icon.svg" 
+                                alt="itSwap" 
+                                className="w-4 h-4 mr-2"
+                            />
+                            itSwap.fun
                         </Badge>
                     </motion.div>
 
@@ -296,48 +258,6 @@ export function HeroSection() {
                         </Link>
                     </motion.div>
 
-                    {/* Trust Stats with Cards */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1 }}
-                    >
-                        <Card className="inline-flex flex-wrap items-center justify-center gap-8 md:gap-0 p-4 md:p-6 bg-zinc-900/60 backdrop-blur-xl border-zinc-800/50 rounded-3xl shadow-2xl">
-                            <div className="text-center px-8">
-                                <div className="flex items-center justify-center gap-2 mb-1">
-                                    <TrendingUp className="w-5 h-5 text-primary" />
-                                    <span className="text-3xl md:text-4xl font-black text-white">
-                                        {usersCounter.count.toLocaleString()}+
-                                    </span>
-                                </div>
-                                <p className="text-sm text-zinc-500 font-medium">Active Users</p>
-                            </div>
-
-                            <Separator orientation="vertical" className="h-12 hidden md:block bg-zinc-800" />
-
-                            <div className="text-center px-8">
-                                <div className="flex items-center justify-center gap-2 mb-1">
-                                    <Zap className="w-5 h-5 text-primary" />
-                                    <span className="text-3xl md:text-4xl font-black text-white">
-                                        ${volumeCounter.count}M+
-                                    </span>
-                                </div>
-                                <p className="text-sm text-zinc-500 font-medium">Trading Volume</p>
-                            </div>
-
-                            <Separator orientation="vertical" className="h-12 hidden md:block bg-zinc-800" />
-
-                            <div className="text-center px-8">
-                                <div className="flex items-center justify-center gap-2 mb-1">
-                                    <Shield className="w-5 h-5 text-primary" />
-                                    <span className="text-3xl md:text-4xl font-black text-primary">
-                                        0%
-                                    </span>
-                                </div>
-                                <p className="text-sm text-zinc-500 font-medium">Hidden Fees</p>
-                            </div>
-                        </Card>
-                    </motion.div>
                 </motion.div>
             </motion.div>
 

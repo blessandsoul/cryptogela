@@ -307,10 +307,12 @@ export const useExchangeStore = create<ExchangeStore>((set, get) => ({
                 throw new Error(error.error || "Validation failed");
             }
             const data: AddressValidation = await res.json();
+            // result: null means validation not available for this currency - allow to proceed
+            // result: true means valid, result: false means invalid
             set({
-                addressValid: data.result,
+                addressValid: data.result === null ? null : data.result,
                 addressValidating: false,
-                addressError: data.result ? null : (data.message || "Invalid address"),
+                addressError: data.result === false ? (data.message || "Invalid address") : null,
             });
         } catch (error) {
             set({
