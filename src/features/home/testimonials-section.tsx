@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion"
 
-const TOKEN_ADDRESS = "a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump"
-
 export function TestimonialsSection() {
     return (
         <section className="py-32 relative overflow-hidden">
