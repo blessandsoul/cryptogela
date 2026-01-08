@@ -40,7 +40,7 @@ export function detectWebView() {
   )
   
   const isIOSWebView = isIOS && (
-    (window.navigator as any).standalone === true ||
+    (window.navigator as Navigator & { standalone?: boolean }).standalone === true ||
     !window.matchMedia('(display-mode: browser)').matches
   )
   
