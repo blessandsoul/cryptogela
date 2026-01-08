@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from "next/server"
 import Groq from "groq-sdk"
-import { env } from "@/lib/env"
 
-// Initialize Groq client
-const groq = new Groq({
-    apiKey: env.GROQ_API_KEY,
-})
+// Lazy initialization of Groq client
+let groqClient: Groq | null = null
+
+function getGroqClient() {
+    if (!groqClient) {
+        const apiKey = process.env.GROQ_API_KEY
+        if (!apiKey) {
+            throw new Error('GROQ_API_KEY environment variable is not set')
+        }
+        groqClient = new Groq({ apiKey })
+    }
+    return groqClient
+}
 
 /**
  * itSwap AI System Prompt
@@ -74,6 +82,7 @@ export async function POST(request: NextRequest) {
             { role: "user" as const, content: message },
         ]
 
+        const groq = getGroqClient()
         const completion = await groq.chat.completions.create({
             model: "llama-3.3-70b-versatile",
             messages,
