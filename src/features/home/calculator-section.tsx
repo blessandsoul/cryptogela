@@ -261,7 +261,7 @@ export function CalculatorSection() {
         : null
 
     return (
-        <section className="py-24 relative">
+        <section id="calculator" className="py-24 relative">
             {/* Background */}
             <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-950 to-black" />
             <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[30rem] bg-primary/5 rounded-full blur-[8rem]" />
@@ -281,8 +281,9 @@ export function CalculatorSection() {
                     </Badge>
                     <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4">
                         <span className="text-primary">
-                            itSwap
+                            it
                         </span>{" "}
+                        <span className="text-purple-500">Swap</span>{" "}
                         <span className="bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">Calculator</span>
                     </h2>
                     <p className="text-zinc-500 max-w-lg mx-auto">

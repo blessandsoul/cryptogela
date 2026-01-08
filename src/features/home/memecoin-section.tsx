@@ -1,8 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
-import { Rocket, Twitter, Send, ExternalLink } from "lucide-react"
+import { Rocket, Twitter, Send, ExternalLink, Copy, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { AxiomIcon } from "@/components/ui/axiom-icon"
 
 const socialLinks = [
     {
@@ -29,9 +31,32 @@ const socialLinks = [
         color: "from-cyan-400 to-blue-500",
         hoverGlow: "rgba(34, 211, 238, 0.4)",
     },
+    {
+        name: "Axiom.pro",
+        description: "Professional trading platform",
+        icon: AxiomIcon,
+        href: "https://axiom.trade",
+        color: "from-emerald-500 to-teal-600",
+        hoverGlow: "rgba(16, 185, 129, 0.4)",
+    },
 ]
 
 export function MemecoinSection() {
+    const [copied, setCopied] = useState(false)
+    
+    const copyToClipboard = async () => {
+        // Placeholder address - you can update this later
+        const contractAddress = "a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump"
+        
+        try {
+            await navigator.clipboard.writeText(contractAddress)
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+        } catch (err) {
+            console.error('Failed to copy:', err)
+        }
+    }
+    
     return (
         <section id="memecoin" className="py-32 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-950/50 to-black" />
@@ -71,7 +96,7 @@ export function MemecoinSection() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                     {socialLinks.map((link, index) => (
                         <motion.div
                             key={link.name}

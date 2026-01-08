@@ -17,6 +17,20 @@ export interface TransactionReceipt {
     expiresAt: Date
 }
 
+let indexesInitialized = false
+
+async function ensureIndexes() {
+    if (indexesInitialized) return
+    
+    const db = await getDatabase()
+    const receipts = db.collection<TransactionReceipt>('receipts')
+    
+    await receipts.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 })
+    await receipts.createIndex({ transactionId: 1 })
+    
+    indexesInitialized = true
+}
+
 export async function createReceipt(
     transactionId: string,
     pin: string,
@@ -32,6 +46,8 @@ export async function createReceipt(
     const db = await getDatabase()
     const receipts = db.collection<TransactionReceipt>('receipts')
 
+    await ensureIndexes()
+
     const receiptId = nanoid(16)
     const pinHash = await bcrypt.hash(pin, 10)
     const createdAt = new Date()
@@ -46,8 +62,6 @@ export async function createReceipt(
         createdAt,
         expiresAt
     })
-
-    await receipts.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 })
 
     return receiptId
 }

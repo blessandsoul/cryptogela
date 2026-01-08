@@ -23,10 +23,10 @@ import { ChatWidget } from "@/components/layout/chat-widget";
  * 1. Hero → Immediate value proposition & primary CTA
  * 2. Partners → Social proof (trust first)
  * 3. Features → What makes us different
- * 4. Calculator → Interactive engagement (pre-conversion hook)
- * 5. Trading Area → Primary conversion action
+ * 4. Trading Area → Primary conversion action
+ * 5. Live Trading → DexTools widget integration
  * 6. Comparison → Overcome objections
- * 7. Testimonials → Peer validation
+ * 7. Calculator → Interactive engagement (pre-conversion hook)
  * 8. Security → Trust reinforcement
  * 9. FAQ → Address remaining concerns
  */
@@ -54,18 +54,18 @@ export default function Home() {
       <FeaturesSection />
 
       {/* ═══════════════════════════════════════════════════════════════
-          ENGAGEMENT: Interactive elements before conversion
-          ═══════════════════════════════════════════════════════════════ */}
-
-      {/* Calculator: "You send → You get" - Reduces friction */}
-      <CalculatorSection />
-
-      {/* ═══════════════════════════════════════════════════════════════
           PRIMARY CONVERSION: The main action area
           ═══════════════════════════════════════════════════════════════ */}
 
       {/* Trading: Get SOL + Buy $ITSWAP with ShadCN Tabs */}
       <TradingSection />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          SOCIAL PROOF: Real user validation
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* Testimonials: Live Trading with DexTools widget */}
+      <TestimonialsSection />
 
       {/* ═══════════════════════════════════════════════════════════════
           OVERCOME OBJECTIONS: Why us over competitors?
@@ -75,11 +75,11 @@ export default function Home() {
       <ComparisonSection />
 
       {/* ═══════════════════════════════════════════════════════════════
-          SOCIAL PROOF: Real user validation
+          ENGAGEMENT: Interactive elements before conversion
           ═══════════════════════════════════════════════════════════════ */}
 
-      {/* Testimonials: Carousel with 5-star reviews */}
-      <TestimonialsSection />
+      {/* Calculator: "You send → You get" - Reduces friction */}
+      <CalculatorSection />
 
       {/* ═══════════════════════════════════════════════════════════════
           TRUST REINFORCEMENT: Security matters in crypto

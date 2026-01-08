@@ -105,23 +105,23 @@ input[type="number"] {
 .dark {
   --background: oklch(0.1 0 0);
   /* Very Dark Zinc#09090b */
-  --foreground: oklch(0.985 0 0);
+  --foreground: oklch(0.3 0.5 300);
   --card: oklch(0.12 0 0);
-  --card-foreground: oklch(0.985 0 0);
+  --card-foreground: oklch(0.3 0.5 300);
   --popover: oklch(0.1 0 0);
-  --popover-foreground: oklch(0.985 0 0);
+  --popover-foreground: oklch(0.3 0.5 300);
   --primary: oklch(0.87 0.17 158);
   /* #00ffbd */
   --primary-foreground: oklch(0.1 0 0);
   --secondary: oklch(0.15 0 0);
   /* Slightly lighter background */
-  --secondary-foreground: oklch(0.985 0 0);
+  --secondary-foreground: oklch(0.3 0.5 300);
   --muted: oklch(0.15 0 0);
   --muted-foreground: oklch(0.65 0 0);
   --accent: oklch(0.15 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --accent-foreground: oklch(0.3 0.5 300);
   --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.985 0 0);
+  --destructive-foreground: oklch(0.3 0.5 300);
   --border: oklch(0.2 0 0);
   --input: oklch(0.2 0 0);
   --ring: oklch(0.87 0.17 158);

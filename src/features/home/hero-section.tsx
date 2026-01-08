@@ -174,26 +174,7 @@ export function HeroSection() {
                     transition={{ duration: 1, ease: "easeOut" }}
                     className="max-w-5xl mx-auto"
                 >
-                    {/* Live Badge with glow */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.3, type: "spring" }}
-                        className="mb-6"
-                    >
-                        <Badge
-                            variant="outline"
-                            className="px-5 py-2.5 text-sm font-semibold bg-primary/10 border-primary/30 text-primary shadow-[0_0_2rem_rgba(0,255,189,0.2)] backdrop-blur-sm"
-                        >
-                            <img 
-                                src="https://statics.solscan.io/solscan-img/token_creator_icon.svg" 
-                                alt="itSwap" 
-                                className="w-4 h-4 mr-2"
-                            />
-                            itSwap.fun
-                        </Badge>
-                    </motion.div>
-
+                    
                     {/* Hero Headline with dramatic reveal */}
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
@@ -202,7 +183,7 @@ export function HeroSection() {
                         className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 leading-[0.85]"
                         style={{ textWrap: 'balance' }}
                     >
-                        <span className="block bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">
+                        <span className="block bg-gradient-to-b from-purple-400 via-purple-400 to-purple-400/40 bg-clip-text text-transparent">
                             The Future of
                         </span>
                         <motion.span
@@ -222,7 +203,7 @@ export function HeroSection() {
                         transition={{ delay: 0.6 }}
                         className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed font-light"
                     >
-                        Non-custodial. Instant. Secure. Exchange any cryptocurrency for SOL and trade <span className="text-primary font-medium">$ITSWAP</span> directly.
+                        Non-custodial. Instant. Secure. Exchange any cryptocurrency for SOL and trade <span className="font-medium">$<span className="text-primary">IT</span><span className="text-purple-500">SWAP</span></span> directly.
                     </motion.p>
 
                     {/* CTA Buttons */}
@@ -248,12 +229,12 @@ export function HeroSection() {
                             href="#faq"
                             className={cn(
                                 buttonVariants({ variant: "outline", size: "lg" }),
-                                "group px-10 py-7 text-lg font-medium rounded-2xl border-zinc-700/50 bg-zinc-900/50 backdrop-blur-sm hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-300 shadow-[0_0_2rem_rgba(0,0,0,0.5)] hover:shadow-[0_0_3rem_rgba(0,255,189,0.1)]"
+                                "group px-10 py-7 text-lg font-medium rounded-2xl border-zinc-700/50 bg-zinc-900/50 backdrop-blur-sm hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-300 shadow-[0_0_2rem_rgba(0,0,0,0.5)] hover:shadow-[0_0_3rem_rgba(0,255,189,0.1)] text-white"
                             )}
                         >
-                            <span className="flex items-center gap-2">
+                            <span className="flex items-center gap-2 text-white">
                                 Learn More
-                                <HelpCircle className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                                <HelpCircle className="w-5 h-5 text-white group-hover:rotate-12 transition-transform duration-300" />
                             </span>
                         </Link>
                     </motion.div>

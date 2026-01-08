@@ -45,7 +45,7 @@ export function FeaturesSection() {
                         <span className="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
                             Why Choose
                         </span>{" "}
-                        <span className="text-primary">itSwap</span>
+                        <span className="text-primary">it</span><span className="text-purple-500">Swap</span>
                     </h2>
                     <p className="text-zinc-500 max-w-xl mx-auto">
                         Built for traders who demand speed, security, and transparency.

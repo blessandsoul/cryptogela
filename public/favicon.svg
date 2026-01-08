@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.35"/>
+    </filter>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8FD63F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6AB82E;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5FA31F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4A8F14;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Top-right curved arrow -->
+  <g filter="url(#shadow)">
+    <path d="M 100 40 Q 130 40 145 55 L 145 45 L 165 60 L 145 75 L 145 65 Q 135 55 110 55 L 110 40 Z" 
+          fill="url(#grad1)" stroke="#2D4A2D" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Right-bottom down arrow -->
+  <g filter="url(#shadow)">
+    <path d="M 155 100 L 155 125 L 165 125 L 145 145 L 125 125 L 135 125 L 135 100 Z" 
+          fill="#5FA31F" stroke="#2D4A2D" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Bottom-left curved arrow -->
+  <g filter="url(#shadow)">
+    <path d="M 100 160 Q 70 160 55 145 L 55 155 L 35 140 L 55 125 L 55 135 Q 65 145 90 145 L 90 160 Z" 
+          fill="url(#grad2)" stroke="#2D4A2D" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Left-top up arrow -->
+  <g filter="url(#shadow)">
+    <path d="M 45 100 L 45 75 L 35 75 L 55 55 L 75 75 L 65 75 L 65 100 Z" 
+          fill="#6AB82E" stroke="#2D4A2D" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+</svg>

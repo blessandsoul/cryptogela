@@ -27,7 +27,7 @@ const faqItems = [
     },
     {
         question: "What cryptocurrencies can I exchange?",
-        answer: "You can exchange over 500+ cryptocurrencies including Bitcoin, Ethereum, USDT, USDC, and many more for SOL through our integrated ChangeNow widget."
+        answer: "You can exchange over 500+ cryptocurrencies including Bitcoin, Ethereum, USDT, USDC, and many more for SOL through our integrated exchange platform."
     },
     {
         question: "How long do swaps take?",

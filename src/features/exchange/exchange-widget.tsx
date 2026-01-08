@@ -256,29 +256,7 @@ export function ExchangeWidget() {
 
                 <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                            <div className="relative">
-                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-emerald-500/10 border border-primary/30 flex items-center justify-center">
-                                    <ArrowRightLeft className="w-5 h-5 text-primary" />
-                                </div>
-                                <motion.div
-                                    className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-green-500 border-2 border-zinc-950"
-                                    animate={{ scale: [1, 1.2, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                />
-                            </div>
-                            <div>
-                                <h3 className="text-base font-bold text-white flex items-center gap-2">
-                                    Crypto Exchange
-                                    <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 text-[10px]">INSTANT</Badge>
-                                </h3>
-                                <p className="text-xs text-zinc-500">500+ cryptocurrencies</p>
-                            </div>
-                        </div>
-                        <Badge className="bg-green-500/10 text-green-400 border-green-500/30">
-                            <Sparkles className="w-3 h-3 mr-1" />Live
-                        </Badge>
-                    </div>
+                                            </div>
                 </CardHeader>
 
                 <CardContent className="pt-0">
@@ -313,7 +291,7 @@ export function ExchangeWidget() {
                                     {/* Swap */}
                                     <div className="flex items-center justify-center lg:py-4">
                                         <Button variant="outline" size="icon" onClick={swapCurrencies} className="rounded-full w-10 h-10 bg-zinc-900 border-zinc-700 hover:bg-zinc-800 hover:border-primary shrink-0">
-                                            <ArrowRightLeft className="w-4 h-4" />
+                                            <ArrowRightLeft className="w-4 h-4 text-white" />
                                         </Button>
                                     </div>
 

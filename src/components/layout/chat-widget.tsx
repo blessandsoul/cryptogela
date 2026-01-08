@@ -123,7 +123,7 @@ export function ChatWidget() {
                                     </motion.div>
                                 </div>
                                 <div>
-                                    <div className="font-bold text-white">itSwap AI Support</div>
+                                    <div className="font-bold text-white"><span className="text-primary">it</span><span className="text-purple-500">Swap</span> AI Support</div>
                                     <div className="flex items-center gap-2 text-xs text-green-400">
                                         <motion.span
                                             className="w-2 h-2 rounded-full bg-green-400"

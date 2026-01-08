@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
 import Groq from "groq-sdk"
+import { env } from "@/lib/env"
 
 // Initialize Groq client
 const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY,
+    apiKey: env.GROQ_API_KEY,
 })
 
 /**
