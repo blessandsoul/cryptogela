@@ -34,7 +34,7 @@ export function TestimonialsSection() {
                     className="max-w-7xl mx-auto rounded-lg border-2 border-zinc-800 overflow-hidden bg-black"
                 >
                     <iframe
-                        src={`https://birdeye.so/tv-widget/${TOKEN_ADDRESS}?chain=solana&viewMode=pair&chartInterval=1D&chartType=CANDLE&theme=dark`}
+                        src="https://birdeye.so/tv-widget/AbeDBXvqGnmcvX8NtQg5qgREFTw7HynkCc4u97xcpump/So11111111111111111111111111111111111111112?chain=solana&viewMode=base%2Fquote&chartInterval=1&chartType=Candle&chartTimezone=Asia%2FTbilisi&chartLeftToolbar=hide&theme=dark&cssCustomProperties=--tv-color-platform-background%3A%23000000&cssCustomProperties=--tv-color-pane-background%3A%23000000&chartOverrides=paneProperties.backgroundType%3Agradient&chartOverrides=paneProperties.background%3Argba%280%2C+0%2C+0%2C+1%29"
                         width="100%"
                         height="600"
                         style={{ border: 0 }}
