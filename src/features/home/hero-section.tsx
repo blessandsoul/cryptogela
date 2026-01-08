@@ -123,7 +123,7 @@ export function HeroSection() {
         return () => {
             window.removeEventListener('mousemove', handleMouseMove)
         }
-    }, [])
+    }, [mouseX, mouseY])
 
     return (
         <section
