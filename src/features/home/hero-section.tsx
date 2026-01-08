@@ -5,8 +5,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from "fram
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Sparkles, HelpCircle } from "lucide-react"
+import { HelpCircle, ArrowRight } from "lucide-react"
 
 // Animated floating orbs
 function FloatingOrb({ delay, size, position, intensity }: {

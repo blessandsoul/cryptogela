@@ -8,7 +8,6 @@ export async function GET() {
 
         const groqApiKey = process.env.GROQ_API_KEY
         const changenowApiKey = process.env.CHANGENOW_API_KEY
-        const mongodbUri = process.env.MONGODB_URI
 
         const checks = {
             status: 'healthy',

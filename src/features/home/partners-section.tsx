@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Wallet, Ghost, Orbit, Zap, Fish, Sparkles } from "lucide-react"
+import { Ghost, Orbit, Zap, Fish, Sparkles } from "lucide-react"
 
 const partners = [
     { name: "Solana", Icon: Orbit },

@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Shield, Lock, Eye, Fingerprint, Server, CheckCircle } from "lucide-react"
+import { Shield, Lock, Eye, Fingerprint, CheckCircle } from "lucide-react"
 
 const securityFeatures = [
     {

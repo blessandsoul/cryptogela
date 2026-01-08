@@ -60,6 +60,7 @@ export function ChatWidget() {
                 }])
             }
         } catch (error) {
+            console.error('Chat error:', error)
             setMessages(prev => [...prev, {
                 role: "assistant",
                 content: "Connection error. Please check your internet and try again."

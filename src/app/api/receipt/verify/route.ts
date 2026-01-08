@@ -36,8 +36,8 @@ export async function POST(request: NextRequest) {
                 createdAt: receipt.createdAt
             }
         })
-    } catch (error: any) {
-        if (error.message === 'Invalid PIN') {
+    } catch (error: unknown) {
+        if (error instanceof Error && error.message === 'Invalid PIN') {
             return NextResponse.json(
                 { error: 'Invalid PIN' },
                 { status: 401 }

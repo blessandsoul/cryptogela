@@ -1,8 +1,7 @@
 "use client"
 
-import { useState } from "react"
 import { motion } from "framer-motion"
-import { Rocket, Twitter, Send, ExternalLink, Copy, CheckCircle } from "lucide-react"
+import { Rocket, Twitter, Send, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AxiomIcon } from "@/components/ui/axiom-icon"
 
@@ -42,20 +41,6 @@ const socialLinks = [
 ]
 
 export function MemecoinSection() {
-    const [copied, setCopied] = useState(false)
-    
-    const copyToClipboard = async () => {
-        // Placeholder address - you can update this later
-        const contractAddress = "a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump"
-        
-        try {
-            await navigator.clipboard.writeText(contractAddress)
-            setCopied(true)
-            setTimeout(() => setCopied(false), 2000)
-        } catch (err) {
-            console.error('Failed to copy:', err)
-        }
-    }
     
     return (
         <section id="memecoin" className="py-32 relative overflow-hidden">

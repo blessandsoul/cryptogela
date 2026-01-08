@@ -63,8 +63,8 @@ export default function ReceiptPage() {
             }
 
             setReceipt(data.receipt)
-        } catch (err: any) {
-            setError(err.message || 'Failed to verify receipt')
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'Failed to verify receipt')
         } finally {
             setLoading(false)
         }

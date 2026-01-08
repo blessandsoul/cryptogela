@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion"
 import { ExchangeWidget } from "@/features/exchange/exchange-widget"
-import { Badge } from "@/components/ui/badge"
-import { Sparkles } from "lucide-react"
 
 export function TradingSection() {
     return (

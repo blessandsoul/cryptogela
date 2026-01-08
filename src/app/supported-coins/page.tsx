@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Search, TrendingUp, Coins, ArrowRight } from "lucide-react"
+import { Search, Coins } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Navbar } from "@/components/layout/navbar"

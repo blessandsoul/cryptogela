@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface AxiomIconProps extends React.SVGProps<SVGSVGElement> {}
+type AxiomIconProps = React.SVGProps<SVGSVGElement>
 
 const AxiomIcon: React.FC<AxiomIconProps> = (props) => (
   <svg

@@ -1,13 +1,12 @@
 "use client"
 
-import { useEffect, useState, useCallback, useMemo } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
     ArrowRightLeft,
     Shield,
     Zap,
     Clock,
-    Sparkles,
     ArrowRight,
     Loader2,
     Copy,

@@ -14,7 +14,6 @@ import {
     Loader2,
     CheckCircle,
     AlertCircle,
-    Info
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -180,7 +179,6 @@ export function CalculatorSection() {
     const [minAmount, setMinAmount] = useState<number | null>(null)
     const [networkFee, setNetworkFee] = useState<number | null>(null)
     const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null)
-    const [addressValid, setAddressValid] = useState<boolean | null>(null)
 
     // Fetch currencies
     useEffect(() => {
