@@ -23,7 +23,7 @@ export function TestimonialsSection() {
                         <span className="text-primary">Trading</span>
                     </h2>
                     <p className="text-zinc-500 max-w-xl mx-auto">
-                        Track real-time charts and trade directly with DexTools integration.
+                        Track real-time charts with Birdeye.so live integration.
                     </p>
                 </motion.div>
 
@@ -33,28 +33,14 @@ export function TestimonialsSection() {
                     viewport={{ once: true }}
                     className="max-w-7xl mx-auto rounded-lg border-2 border-zinc-800 overflow-hidden bg-black"
                 >
-                    
-                    <div className="flex flex-wrap">
-                        <div className="flex-[7] min-w-[600px] h-[600px]">
-                            <iframe
-                                src={`https://www.dextools.io/widget-chart/en/solana/pe-light/${TOKEN_ADDRESS}?theme=dark`}
-                                width="100%"
-                                height="100%"
-                                style={{ border: 0 }}
-                                title="DexTools Chart"
-                            />
-                        </div>
-
-                        <div className="flex-[3] min-w-[350px] h-[600px] border-l border-zinc-800">
-                            <iframe
-                                src={`https://www.dextools.io/widget-aggregator/en/swap/solana/${TOKEN_ADDRESS}?theme=dark`}
-                                width="100%"
-                                height="100%"
-                                style={{ border: 0 }}
-                                title="DexTools Swap"
-                            />
-                        </div>
-                    </div>
+                    <iframe
+                        src={`https://birdeye.so/tv-widget/${TOKEN_ADDRESS}?chain=solana&viewMode=pair&chartInterval=1D&chartType=CANDLE&theme=dark`}
+                        width="100%"
+                        height="600"
+                        style={{ border: 0 }}
+                        title="Birdeye Live Chart"
+                        allowFullScreen
+                    />
                 </motion.div>
             </div>
         </section>
