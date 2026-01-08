@@ -220,3 +220,39 @@ input[type="number"] {
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+/* Mobile Performance Optimizations */
+@media (max-width: 768px) {
+  * {
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+  }
+  
+  .glass {
+    backdrop-filter: blur(8px);
+  }
+  
+  .glass-dark {
+    backdrop-filter: blur(10px);
+  }
+  
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
+  }
+  
+  img, video, iframe {
+    will-change: transform;
+  }
+  
+  [class*="animate-"] {
+    animation-duration: 0.5s !important;
+  }
+  
+  * {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+}

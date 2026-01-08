@@ -13,6 +13,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: '#000000',
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://itswap.fun'),
   title: {

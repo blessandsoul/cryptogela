@@ -7,6 +7,21 @@ import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { HelpCircle, ArrowRight } from "lucide-react"
 
+function useIsMobile() {
+    const [isMobile, setIsMobile] = useState(false)
+    
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768)
+        }
+        checkMobile()
+        window.addEventListener('resize', checkMobile)
+        return () => window.removeEventListener('resize', checkMobile)
+    }, [])
+    
+    return isMobile
+}
+
 // Animated floating orbs
 function FloatingOrb({ delay, size, position, intensity }: {
     delay: number
@@ -40,7 +55,7 @@ function FloatingOrb({ delay, size, position, intensity }: {
 }
 
 // Particle effect - client-side only to avoid hydration mismatch
-function Particles() {
+function Particles({ isMobile }: { isMobile: boolean }) {
     const [particles, setParticles] = useState<Array<{
         id: number
         x: number
@@ -50,9 +65,9 @@ function Particles() {
     }>>([])
 
     useEffect(() => {
-        // Generate random values only on client
+        const count = isMobile ? 5 : 20
         setParticles(
-            [...Array(20)].map((_, i) => ({
+            [...Array(count)].map((_, i) => ({
                 id: i,
                 x: Math.random() * 100,
                 left: Math.random() * 100,
@@ -60,7 +75,7 @@ function Particles() {
                 delay: Math.random() * 5
             }))
         )
-    }, [])
+    }, [isMobile])
 
     if (particles.length === 0) return null
 
@@ -93,24 +108,26 @@ function Particles() {
 }
 
 export function HeroSection() {
+    const isMobile = useIsMobile()
     const containerRef = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end start"]
     })
 
-    const y = useTransform(scrollYProgress, [0, 1], [0, 200])
+    const y = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 100 : 200])
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
     const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95])
 
 
-    // Mouse follower effect
     const mouseX = useMotionValue(0)
     const mouseY = useMotionValue(0)
     const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 })
     const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 })
 
     useEffect(() => {
+        if (isMobile) return
+        
         const handleMouseMove = (e: MouseEvent) => {
             const rect = containerRef.current?.getBoundingClientRect()
             if (rect) {
@@ -123,7 +140,7 @@ export function HeroSection() {
         return () => {
             window.removeEventListener('mousemove', handleMouseMove)
         }
-    }, [])
+    }, [isMobile, mouseX, mouseY])
 
     return (
         <section
@@ -148,18 +165,24 @@ export function HeroSection() {
                 />
 
                 {/* Floating Orbs */}
-                <FloatingOrb delay={0} size="w-[50rem] h-[50rem]" position={{ top: '-20%', left: '-10%' }} intensity="medium" />
-                <FloatingOrb delay={0.3} size="w-[40rem] h-[40rem]" position={{ bottom: '-20%', right: '-10%' }} intensity="low" />
-                <FloatingOrb delay={0.6} size="w-[30rem] h-[30rem]" position={{ top: '40%', right: '20%' }} intensity="high" />
+                {!isMobile && (
+                    <>
+                        <FloatingOrb delay={0} size="w-[50rem] h-[50rem]" position={{ top: '-20%', left: '-10%' }} intensity="medium" />
+                        <FloatingOrb delay={0.3} size="w-[40rem] h-[40rem]" position={{ bottom: '-20%', right: '-10%' }} intensity="low" />
+                        <FloatingOrb delay={0.6} size="w-[30rem] h-[30rem]" position={{ top: '40%', right: '20%' }} intensity="high" />
+                    </>
+                )}
 
                 {/* Particles */}
-                <Particles />
+                <Particles isMobile={isMobile} />
 
                 {/* Spotlight effect */}
-                <motion.div
-                    style={{ x: smoothX, y: smoothY }}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80rem] h-[80rem] bg-primary/5 rounded-full blur-[10rem] pointer-events-none"
-                />
+                {!isMobile && (
+                    <motion.div
+                        style={{ x: smoothX, y: smoothY }}
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80rem] h-[80rem] bg-primary/5 rounded-full blur-[10rem] pointer-events-none"
+                    />
+                )}
             </div>
 
             {/* Main Content */}

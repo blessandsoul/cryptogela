@@ -38,7 +38,7 @@ export function TestimonialsSection() {
                                 id="dextools-widget"
                                 title="DEXTools Trading Chart"
                                 width="100%"
-                                height="600"
+                                className="h-[400px] md:h-[600px] w-full"
                                 src="https://www.dextools.io/widget-chart/en/solana/pe-light/HAA23Mf9ddHoLqZK1GDcfSh2rQ5yP9Jmat2aY4P2mdNw?theme=dark&chartType=2&chartResolution=30&drawingToolbars=false"
                                 style={{ border: 0 }}
                             />
