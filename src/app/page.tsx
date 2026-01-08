@@ -5,7 +5,6 @@ import { FeaturesSection } from "@/features/home/features-section";
 import { CalculatorSection } from "@/features/home/calculator-section";
 import { TradingSection } from "@/features/home/trading-section";
 import { ComparisonSection } from "@/features/home/comparison-section";
-import { TestimonialsSection } from "@/features/home/testimonials-section";
 import { SecuritySection } from "@/features/home/security-section";
 import { MemecoinSection } from "@/features/home/memecoin-section";
 import { FAQSection } from "@/features/faq/faq-section";
@@ -24,11 +23,10 @@ import { ChatWidget } from "@/components/layout/chat-widget";
  * 2. Partners → Social proof (trust first)
  * 3. Features → What makes us different
  * 4. Trading Area → Primary conversion action
- * 5. Live Trading → DexTools widget integration
- * 6. Comparison → Overcome objections
- * 7. Calculator → Interactive engagement (pre-conversion hook)
- * 8. Security → Trust reinforcement
- * 9. FAQ → Address remaining concerns
+ * 5. Comparison → Overcome objections
+ * 6. Calculator → Interactive engagement (pre-conversion hook)
+ * 7. Security → Trust reinforcement
+ * 8. FAQ → Address remaining concerns
  */
 export default function Home() {
   return (
@@ -59,13 +57,6 @@ export default function Home() {
 
       {/* Trading: Get SOL + Buy $ITSWAP with ShadCN Tabs */}
       <TradingSection />
-
-      {/* ═══════════════════════════════════════════════════════════════
-          SOCIAL PROOF: Real user validation
-          ═══════════════════════════════════════════════════════════════ */}
-
-      {/* Testimonials: Live Trading with DexTools widget */}
-      <TestimonialsSection />
 
       {/* ═══════════════════════════════════════════════════════════════
           OVERCOME OBJECTIONS: Why us over competitors?
