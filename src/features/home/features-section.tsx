@@ -1,23 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Shield, Zap, Lock, RefreshCw } from "lucide-react"
-
-function useIsMobile() {
-    const [isMobile, setIsMobile] = useState(false)
-    
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768)
-        }
-        checkMobile()
-        window.addEventListener('resize', checkMobile)
-        return () => window.removeEventListener('resize', checkMobile)
-    }, [])
-    
-    return isMobile
-}
 
 const features = [
     {
@@ -43,8 +27,6 @@ const features = [
 ]
 
 export function FeaturesSection() {
-    const isMobile = useIsMobile()
-    
     return (
         <section className="py-32 relative overflow-hidden">
             {/* Background */}
@@ -79,7 +61,7 @@ export function FeaturesSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
-                            whileHover={isMobile ? undefined : { y: -5, scale: 1.02 }}
+                            whileHover={{ y: -5, scale: 1.02 }}
                             className="group relative"
                         >
                             {/* Glassmorphism Card */}

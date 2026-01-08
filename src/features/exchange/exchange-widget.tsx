@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
     ArrowRightLeft,
@@ -57,7 +57,7 @@ function CurrencySelector({
     }, [currencies, search])
 
     return (
-        <div className="relative">
+        <div className="relative z-[100]">
             <button
                 type="button"
                 onClick={() => setOpen(!open)}
@@ -85,12 +85,12 @@ function CurrencySelector({
             <AnimatePresence>
                 {open && (
                     <>
-                        <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+                        <div className="fixed inset-0 z-[90]" onClick={() => setOpen(false)} />
                         <motion.div
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="absolute top-full left-0 mt-2 z-50 w-80 bg-zinc-900 border border-zinc-800 rounded-xl shadow-xl overflow-hidden"
+                            className="absolute top-full left-0 mt-2 z-[110] w-80 bg-zinc-900 border border-zinc-800 rounded-xl shadow-xl overflow-hidden"
                         >
                             <div className="p-2 border-b border-zinc-800">
                                 <div className="relative">

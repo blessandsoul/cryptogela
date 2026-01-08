@@ -6,22 +6,6 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { HelpCircle, ArrowRight } from "lucide-react"
-import { useWebView } from "@/lib/webview-context"
-
-function useIsMobile() {
-    const [isMobile, setIsMobile] = useState(false)
-    
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768)
-        }
-        checkMobile()
-        window.addEventListener('resize', checkMobile)
-        return () => window.removeEventListener('resize', checkMobile)
-    }, [])
-    
-    return isMobile
-}
 
 // Animated floating orbs
 function FloatingOrb({ delay, size, position, intensity }: {
@@ -56,7 +40,7 @@ function FloatingOrb({ delay, size, position, intensity }: {
 }
 
 // Particle effect - client-side only to avoid hydration mismatch
-function Particles({ isMobile }: { isMobile: boolean }) {
+function Particles() {
     const [particles, setParticles] = useState<Array<{
         id: number
         x: number
@@ -66,9 +50,9 @@ function Particles({ isMobile }: { isMobile: boolean }) {
     }>>([])
 
     useEffect(() => {
-        const count = isMobile ? 5 : 20
+        // Generate random values only on client
         setParticles(
-            [...Array(count)].map((_, i) => ({
+            [...Array(20)].map((_, i) => ({
                 id: i,
                 x: Math.random() * 100,
                 left: Math.random() * 100,
@@ -76,7 +60,7 @@ function Particles({ isMobile }: { isMobile: boolean }) {
                 delay: Math.random() * 5
             }))
         )
-    }, [isMobile])
+    }, [])
 
     if (particles.length === 0) return null
 
@@ -109,27 +93,24 @@ function Particles({ isMobile }: { isMobile: boolean }) {
 }
 
 export function HeroSection() {
-    const isMobile = useIsMobile()
-    const { isWebView } = useWebView()
     const containerRef = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end start"]
     })
 
-    const y = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 100 : 200])
+    const y = useTransform(scrollYProgress, [0, 1], [0, 200])
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
     const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95])
 
 
+    // Mouse follower effect
     const mouseX = useMotionValue(0)
     const mouseY = useMotionValue(0)
     const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 })
     const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 })
 
     useEffect(() => {
-        if (isMobile || isWebView) return
-        
         const handleMouseMove = (e: MouseEvent) => {
             const rect = containerRef.current?.getBoundingClientRect()
             if (rect) {
@@ -142,7 +123,7 @@ export function HeroSection() {
         return () => {
             window.removeEventListener('mousemove', handleMouseMove)
         }
-    }, [isMobile, isWebView, mouseX, mouseY])
+    }, [])
 
     return (
         <section
@@ -151,46 +132,34 @@ export function HeroSection() {
         >
             {/* Layered Background Effects */}
             <div className="absolute inset-0 z-0">
-                {isWebView ? (
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#001410] via-black to-black" />
-                ) : (
-                    <>
-                        {/* Base gradient */}
-                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,20,15,1)_0%,rgba(0,0,0,1)_70%)]" />
+                {/* Base gradient */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,20,15,1)_0%,rgba(0,0,0,1)_70%)]" />
 
-                        {/* Animated grid */}
-                        <div
-                            className="absolute inset-0 opacity-[0.04]"
-                            style={{
-                                backgroundImage: `
-                                    linear-gradient(rgba(0,255,189,0.3) 1px, transparent 1px),
-                                    linear-gradient(90deg, rgba(0,255,189,0.3) 1px, transparent 1px)
-                                `,
-                                backgroundSize: '4rem 4rem'
-                            }}
-                        />
+                {/* Animated grid */}
+                <div
+                    className="absolute inset-0 opacity-[0.04]"
+                    style={{
+                        backgroundImage: `
+                            linear-gradient(rgba(0,255,189,0.3) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(0,255,189,0.3) 1px, transparent 1px)
+                        `,
+                        backgroundSize: '4rem 4rem'
+                    }}
+                />
 
-                        {/* Floating Orbs */}
-                        {!isMobile && (
-                            <>
-                                <FloatingOrb delay={0} size="w-[50rem] h-[50rem]" position={{ top: '-20%', left: '-10%' }} intensity="medium" />
-                                <FloatingOrb delay={0.3} size="w-[40rem] h-[40rem]" position={{ bottom: '-20%', right: '-10%' }} intensity="low" />
-                                <FloatingOrb delay={0.6} size="w-[30rem] h-[30rem]" position={{ top: '40%', right: '20%' }} intensity="high" />
-                            </>
-                        )}
+                {/* Floating Orbs */}
+                <FloatingOrb delay={0} size="w-[50rem] h-[50rem]" position={{ top: '-20%', left: '-10%' }} intensity="medium" />
+                <FloatingOrb delay={0.3} size="w-[40rem] h-[40rem]" position={{ bottom: '-20%', right: '-10%' }} intensity="low" />
+                <FloatingOrb delay={0.6} size="w-[30rem] h-[30rem]" position={{ top: '40%', right: '20%' }} intensity="high" />
 
-                        {/* Particles */}
-                        <Particles isMobile={isMobile} />
+                {/* Particles */}
+                <Particles />
 
-                        {/* Spotlight effect */}
-                        {!isMobile && (
-                            <motion.div
-                                style={{ x: smoothX, y: smoothY }}
-                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80rem] h-[80rem] bg-primary/5 rounded-full blur-[10rem] pointer-events-none"
-                            />
-                        )}
-                    </>
-                )}
+                {/* Spotlight effect */}
+                <motion.div
+                    style={{ x: smoothX, y: smoothY }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80rem] h-[80rem] bg-primary/5 rounded-full blur-[10rem] pointer-events-none"
+                />
             </div>
 
             {/* Main Content */}
