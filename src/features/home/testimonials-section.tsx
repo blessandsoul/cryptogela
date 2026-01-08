@@ -1,9 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { TrendingUp, ArrowLeftRight } from "lucide-react"
-
-const TOKEN_ADDRESS = "a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump"
 
 export function TestimonialsSection() {
     return (
