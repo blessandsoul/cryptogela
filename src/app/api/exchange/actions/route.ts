@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { env } from "@/lib/env";
 
 const CHANGENOW_API = "https://api.changenow.io/v1";
-const API_KEY = env.CHANGENOW_API_KEY;
 
 export async function GET(request: NextRequest) {
     const { searchParams } = request.nextUrl;
@@ -15,9 +13,17 @@ export async function GET(request: NextRequest) {
         );
     }
 
+    const apiKey = process.env.CHANGENOW_API_KEY;
+    if (!apiKey) {
+        return NextResponse.json(
+            { error: "API key not configured" },
+            { status: 500 }
+        );
+    }
+
     try {
         const res = await fetch(
-            `${CHANGENOW_API}/transactions/${id}/actions/${API_KEY}`
+            `${CHANGENOW_API}/transactions/${id}/actions/${apiKey}`
         );
 
         if (!res.ok) {

@@ -1,10 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { env } from "@/lib/env";
+
 
 const CHANGENOW_API = "https://api.changenow.io/v1";
-const API_KEY = env.CHANGENOW_API_KEY;
+
 
 export async function POST(request: NextRequest) {
+    const apiKey = process.env.CHANGENOW_API_KEY;
+    if (!apiKey) {
+        return NextResponse.json(
+            { error: "API key not configured" },
+            { status: 500 }
+        );
+    }
+
     try {
         const body = await request.json();
         const {
@@ -25,7 +33,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const res = await fetch(`${CHANGENOW_API}/fiat-transactions/${API_KEY}`, {
+        const res = await fetch(`${CHANGENOW_API}/fiat-transactions/${apiKey}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { env } from "@/lib/env";
 
 const CHANGENOW_API = "https://api.changenow.io/v1";
-const API_KEY = env.CHANGENOW_API_KEY;
 
 export async function GET(request: NextRequest) {
+        const apiKey = process.env.CHANGENOW_apiKey;
+        if (!apiKey) {
+            return NextResponse.json(
+                { error: "API key not configured" },
+                { status: 500 }
+            );
+        }
+
     const { searchParams } = request.nextUrl;
     const limit = searchParams.get("limit") || "100";
     const offset = searchParams.get("offset") || "0";
@@ -13,7 +19,7 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get("status");
 
     try {
-        let url = `${CHANGENOW_API}/transactions/${API_KEY}?limit=${limit}&offset=${offset}`;
+        let url = `${CHANGENOW_API}/transactions/${apiKey}?limit=${limit}&offset=${offset}`;
 
         if (from) url += `&from=${from}`;
         if (to) url += `&to=${to}`;

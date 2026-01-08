@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { env } from "@/lib/env";
 
 const CHANGENOW_API = "https://api.changenow.io/v1";
-const API_KEY = env.CHANGENOW_API_KEY;
 
 export async function GET(request: NextRequest) {
+        const apiKey = process.env.CHANGENOW_apiKey;
+        if (!apiKey) {
+            return NextResponse.json(
+                { error: "API key not configured" },
+                { status: 500 }
+            );
+        }
+
     const { searchParams } = request.nextUrl;
     const from = searchParams.get("from");
     const to = searchParams.get("to");
@@ -20,7 +26,7 @@ export async function GET(request: NextRequest) {
     try {
         // Try to get network fee from estimate endpoint which includes it
         const res = await fetch(
-            `${CHANGENOW_API}/exchange-amount/${amount}/${from}_${to}?api_key=${API_KEY}`
+            `${CHANGENOW_API}/exchange-amount/${amount}/${from}_${to}?apiKey=${apiKey}`
         );
 
         if (!res.ok) {
