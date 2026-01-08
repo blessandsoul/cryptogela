@@ -7,6 +7,7 @@ import { TradingSection } from "@/features/home/trading-section";
 import { ComparisonSection } from "@/features/home/comparison-section";
 import { SecuritySection } from "@/features/home/security-section";
 import { MemecoinSection } from "@/features/home/memecoin-section";
+import { BetaAppSection } from "@/features/home/beta-app-section";
 import { FAQSection } from "@/features/faq/faq-section";
 import { Footer } from "@/components/layout/footer";
 import { StickyCTA } from "@/components/layout/sticky-cta";
@@ -86,6 +87,12 @@ export default function Home() {
       {/* Memecoin: PumpFun, Twitter, Telegram links */}
       <MemecoinSection />
 
+      {/* ═══════════════════════════════════════════════════════════════
+          BETA APP: Android mobile app download with QR code
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* Beta App: Download Android APK with QR code */}
+      <BetaAppSection />
 
       {/* ═══════════════════════════════════════════════════════════════
           ADDRESS CONCERNS: Pre-purchase questions
