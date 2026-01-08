@@ -32,19 +32,12 @@ export function TradingSection() {
                     viewport={{ once: true }}
                     className="text-center mb-12"
                 >
-                    <Badge
-                        variant="outline"
-                        className="mb-6 px-4 py-2 bg-primary/10 border-primary/30 text-primary"
-                    >
-                        <Sparkles className="w-4 h-4 mr-2" />
-                        Start In Seconds
-                    </Badge>
-
+                    
                     <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
                         <span className="bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
-                            Trade With
+                            Trade on
                         </span>{" "}
-                        <span className="text-primary">Confidence</span>
+                        <span className="text-primary">it</span><span className="text-purple-500">Swap</span>
                     </h2>
 
                     <p className="text-lg text-zinc-500 max-w-2xl mx-auto">

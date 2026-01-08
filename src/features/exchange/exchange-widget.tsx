@@ -336,7 +336,7 @@ export function ExchangeWidget() {
                                             value={recipientAddress}
                                             onChange={(e) => setRecipientAddress(e.target.value)}
                                             placeholder={`Enter your ${toCurrency.toUpperCase()} address`}
-                                            className={`bg-zinc-800/50 border-zinc-700 focus:border-primary h-12 ${addressValid === false ? 'border-red-500' : addressValid === true ? 'border-green-500' : ''}`}
+                                            className={`bg-zinc-800/50 border-zinc-700 text-white focus:border-primary h-12 ${addressValid === false ? 'border-red-500' : addressValid === true ? 'border-green-500' : ''}`}
                                         />
                                         {addressError && (
                                             <p className="text-xs text-red-400 mt-1">{addressError}</p>
@@ -369,7 +369,7 @@ export function ExchangeWidget() {
                                             value={refundAddress}
                                             onChange={(e) => setRefundAddress(e.target.value)}
                                             placeholder={`Your ${fromCurrency.toUpperCase()} address for refund`}
-                                            className="bg-zinc-800/50 border-zinc-700 focus:border-primary"
+                                            className="bg-zinc-800/50 border-zinc-700 text-white focus:border-primary"
                                         />
                                     </div>
                                 </details>
@@ -405,7 +405,7 @@ export function ExchangeWidget() {
                                                 onChange={(e) => setReceiptPin(e.target.value.replace(/\D/g, '').slice(0, 8))}
                                                 placeholder="Enter PIN"
                                                 maxLength={8}
-                                                className="bg-zinc-800/50 border-zinc-700 focus:border-primary"
+                                                className="bg-zinc-800/50 border-zinc-700 text-white focus:border-primary"
                                             />
                                             {receiptPin && receiptPin.length < 4 && (
                                                 <p className="text-xs text-yellow-400 mt-1">
@@ -433,7 +433,7 @@ export function ExchangeWidget() {
                                 </div>
                                 {transactionError && <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm"><AlertCircle className="w-4 h-4 shrink-0" />{transactionError}</div>}
                                 <div className="flex gap-3">
-                                    <Button variant="outline" onClick={() => setStep("input")} className="flex-1">Back</Button>
+                                    <Button variant="outline" onClick={() => setStep("input")} className="flex-1 text-white">Back</Button>
                                     <Button onClick={createTransaction} disabled={transactionLoading} className="flex-1 bg-gradient-to-r from-primary to-emerald-500">
                                         {transactionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Confirm Exchange"}
                                     </Button>
@@ -453,7 +453,7 @@ export function ExchangeWidget() {
                                     <div className="flex items-center gap-2">
                                         <code className="flex-1 text-sm font-mono text-white break-all bg-zinc-800/50 p-3 rounded">{transaction.payinAddress}</code>
                                         <Button variant="outline" size="icon" onClick={() => copyToClipboard(transaction.payinAddress)} className="shrink-0">
-                                            {copied ? <CheckCircle className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                                            {copied ? <CheckCircle className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-white" />}
                                         </Button>
                                     </div>
                                 </div>

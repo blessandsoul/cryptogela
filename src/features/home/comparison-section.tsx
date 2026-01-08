@@ -68,7 +68,7 @@ export function ComparisonSection() {
                         <span className="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
                             Why Choose
                         </span>{" "}
-                        <span className="text-primary">it</span><span className="text-purple-500">Swap</span>?
+                        <span className="text-primary">it</span><span className="text-purple-500">Swap</span><span className="text-white">?</span>
                     </h2>
                     <p className="text-zinc-500 max-w-xl mx-auto">
                         See how we compare to centralized exchanges and other DEX aggregators.

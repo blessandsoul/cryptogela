@@ -203,7 +203,7 @@ export function HeroSection() {
                         transition={{ delay: 0.6 }}
                         className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed font-light"
                     >
-                        Non-custodial. Instant. Secure. Exchange any cryptocurrency for SOL and trade <span className="font-medium">$<span className="text-primary">IT</span><span className="text-purple-500">SWAP</span></span> directly.
+                        Non-custodial. Instant. Secure. Exchange any cryptocurrency for SOL and trade <span className="font-medium text-zinc-400">$ITSWAP</span> directly.
                     </motion.p>
 
                     {/* CTA Buttons */}

@@ -309,7 +309,7 @@ export function CalculatorSection() {
                                         type="number"
                                         value={amount}
                                         onChange={(e) => setAmount(e.target.value)}
-                                        className="flex-1 bg-zinc-800/80 border-zinc-700 rounded-xl px-4 py-3 h-auto text-xl font-bold focus:border-primary focus-visible:ring-primary"
+                                        className="flex-1 bg-zinc-800/80 border-zinc-700 rounded-xl px-4 py-3 h-auto text-xl font-bold text-white focus:border-primary focus-visible:ring-primary"
                                         placeholder="0.00"
                                     />
                                     <div className="w-32">
