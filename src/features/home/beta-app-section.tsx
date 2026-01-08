@@ -26,7 +26,7 @@ export function BetaAppSection() {
     }
 
     return (
-        <section className="relative py-24 md:py-32 overflow-hidden">
+        <section id="beta-app" className="relative py-24 md:py-32 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-black via-[#001410] to-black" />
             
             <div className="absolute inset-0 opacity-[0.03]">

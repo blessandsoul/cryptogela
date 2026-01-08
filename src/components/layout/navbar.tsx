@@ -15,13 +15,15 @@ import {
     Zap,
     Calculator,
     Copy,
-    ChevronDown
+    ChevronDown,
+    Download
 } from "lucide-react"
 
 const navLinks = [
     { href: "#exchange", label: "Exchange", icon: Coins },
     { href: "#calculator", label: "Calculate", icon: Calculator },
     { href: "#memecoin", label: "Our Memecoin", icon: Rocket },
+    { href: "#beta-app", label: "Get App", icon: Download },
     { href: "#faq", label: "FAQ", icon: HelpCircle },
 ]
 
