@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 const CHANGENOW_API = "https://api.changenow.io/v1";
 
 export async function GET(request: NextRequest) {
-        const apiKey = process.env.CHANGENOW_apiKey;
+        const apiKey = process.env.CHANGENOW_API_KEY;
         if (!apiKey) {
             return NextResponse.json(
                 { error: "API key not configured" },
