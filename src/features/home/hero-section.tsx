@@ -179,7 +179,7 @@ export function HeroSection() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.8 }}
-                        className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 leading-[0.85]"
+                        className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 leading-[1.1]"
                         style={{ textWrap: 'balance' }}
                     >
                         <span className="block bg-gradient-to-b from-purple-400 via-purple-400 to-purple-400/40 bg-clip-text text-transparent">
