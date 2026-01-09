@@ -7,7 +7,6 @@ import {
     Shield,
     Zap,
     Clock,
-    TrendingUp,
     ChevronDown,
     Search,
     X,

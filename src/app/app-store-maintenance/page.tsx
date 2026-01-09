@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowLeft, Clock, Wrench, Mail, Check } from "lucide-react"
+import { ArrowLeft, Mail, Check } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 

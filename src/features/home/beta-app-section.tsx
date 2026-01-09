@@ -1,18 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { QRCodeSVG } from "qrcode.react"
-import { Download, Smartphone, Zap, Shield, Users } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 
 export function BetaAppSection() {
-    const [downloadUrl, setDownloadUrl] = useState("")
-
     useEffect(() => {
         if (typeof window !== "undefined") {
-            setDownloadUrl(`${window.location.origin}/itswap-beta.apk`)
+            // Set download URL logic here if needed
         }
     }, [])
 
