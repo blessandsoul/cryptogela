@@ -273,11 +273,7 @@ export function CalculatorSection() {
                     viewport={{ once: true }}
                     className="text-center mb-10"
                 >
-                    <Badge className="mb-4 bg-primary/10 text-primary border-primary/30">
-                        <TrendingUp className="w-3 h-3 mr-1" />
-                        Real-time Rates
-                    </Badge>
-                    <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4">
+                                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4">
                         <span className="text-primary">
                             it
                         </span>{" "}

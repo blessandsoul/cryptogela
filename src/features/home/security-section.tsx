@@ -45,11 +45,7 @@ export function SecuritySection() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
-                        <CheckCircle className="w-4 h-4" />
-                        Enterprise-Grade Security
-                    </div>
-                    <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4">
+                                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4">
                         <span className="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
                             Your Security is
                         </span>{" "}
