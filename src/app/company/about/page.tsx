@@ -186,8 +186,8 @@ export default function AboutUs() {
                             </p>
                             <p className="text-muted-foreground/80">
                                 <strong className="text-white">Telegram:</strong>{" "}
-                                <a href="https://t.me/itswapfun" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300">
-                                    t.me/itswapfun
+                                <a href="http://t.me/itswapexchange" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300">
+                                    t.me/itswapexchange
                                 </a>
                             </p>
                         </div>

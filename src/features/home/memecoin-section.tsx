@@ -28,7 +28,7 @@ const socialLinks = [
         name: "Telegram",
         description: "Join our community",
         icon: Send,
-        href: "https://t.me/itswap",
+        href: "http://t.me/itswapexchange",
         color: "from-transparent to-transparent",
         hoverGlow: "rgba(34, 211, 238, 0.4)",
     },
