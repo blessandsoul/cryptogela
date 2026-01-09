@@ -1,0 +1,11 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="solanaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9945FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14F195;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path d="M30 75L45 60H90L75 75H30Z" fill="url(#solanaGradient)"/>
+  <path d="M30 45L45 30H90L75 45H30Z" fill="url(#solanaGradient)" opacity="0.7"/>
+  <path d="M30 90L45 75H90L75 90H30Z" fill="url(#solanaGradient)" opacity="0.5"/>
+</svg>

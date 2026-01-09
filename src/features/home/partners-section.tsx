@@ -1,15 +1,15 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Ghost, Orbit, Zap, Fish, Sparkles } from "lucide-react"
+import Image from "next/image"
 
 const partners = [
-    { name: "Solana", Icon: Orbit },
-    { name: "Phantom", Icon: Ghost },
-    { name: "Jupiter", Icon: Orbit },
-    { name: "Raydium", Icon: Zap },
-    { name: "Orca", Icon: Fish },
-    { name: "Magic Eden", Icon: Sparkles },
+    { name: "Solana", logo: "/logos/solana.svg" },
+    { name: "Phantom", logo: "/logos/phantom.svg" },
+    { name: "Jupiter", logo: "/logos/jupiter.svg" },
+    { name: "Raydium", logo: "/logos/raydium.svg" },
+    { name: "Orca", logo: "/logos/orca.svg" },
+    { name: "Magic Eden", logo: "/logos/magic-eden.svg" },
 ]
 
 export function PartnersSection() {
@@ -46,8 +46,14 @@ export function PartnersSection() {
                                 <motion.div
                                     whileHover={{ rotate: 360 }}
                                     transition={{ duration: 0.5 }}
+                                    className="relative w-12 h-12 group-hover:drop-shadow-[0_0_12px_rgba(0,255,189,0.6)]"
                                 >
-                                    <partner.Icon className="w-8 h-8 group-hover:drop-shadow-[0_0_8px_rgba(0,255,189,0.5)]" />
+                                    <Image
+                                        src={partner.logo}
+                                        alt={`${partner.name} logo`}
+                                        fill
+                                        className="object-contain"
+                                    />
                                 </motion.div>
                                 <span className="text-lg font-medium hidden md:block">{partner.name}</span>
                             </motion.div>
