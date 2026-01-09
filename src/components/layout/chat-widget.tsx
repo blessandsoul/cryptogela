@@ -124,8 +124,8 @@ export function ChatWidget() {
                                     </motion.div>
                                 </div>
                                 <div>
-                                    <div className="font-bold text-white"><span className="text-primary">it</span><span className="text-purple-500">Swap</span> AI Support</div>
-                                    <div className="flex items-center gap-2 text-xs text-green-400">
+                                    <div className="font-bold text-white">itSwap AI Support</div>
+                                    <div className="flex items-center gap-2 text-xs text-white">
                                         <motion.span
                                             className="w-2 h-2 rounded-full bg-green-400"
                                             animate={{ opacity: [1, 0.5, 1] }}
@@ -183,7 +183,7 @@ export function ChatWidget() {
                                     onKeyPress={handleKeyPress}
                                     placeholder="Type your message..."
                                     disabled={isLoading}
-                                    className="flex-1 bg-zinc-800 border-zinc-700 rounded-xl text-sm placeholder-zinc-500 focus-visible:ring-primary"
+                                    className="flex-1 bg-zinc-800 border-zinc-700 rounded-xl text-sm text-white placeholder-zinc-500 focus-visible:ring-primary"
                                 />
                                 <Button
                                     onClick={sendMessage}

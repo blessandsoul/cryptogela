@@ -78,10 +78,36 @@ export default function ReceiptPage() {
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'finished': return 'bg-green-500/10 text-green-400 border-green-500/30'
-            case 'pending': return 'bg-yellow-500/10 text-yellow-400 border-yellow-500/30'
-            case 'exchanging': return 'bg-blue-500/10 text-blue-400 border-blue-500/30'
-            default: return 'bg-zinc-500/10 text-zinc-400 border-zinc-500/30'
+            case 'finished':
+            case 'complete':
+                return 'bg-green-500/10 text-green-400 border-green-500/30'
+            case 'waiting':
+            case 'confirming':
+            case 'exchanging':
+                return 'bg-yellow-500/10 text-yellow-400 border-yellow-500/30'
+            case 'failed':
+            case 'refunded':
+                return 'bg-red-500/10 text-red-400 border-red-500/30'
+            default:
+                return 'bg-zinc-500/10 text-zinc-400 border-zinc-500/30'
+        }
+    }
+
+    const getStatusText = (status: string) => {
+        switch (status) {
+            case 'finished':
+                return 'COMPLETE'
+            case 'waiting':
+            case 'confirming':
+                return 'PENDING'
+            case 'exchanging':
+                return 'EXCHANGING'
+            case 'failed':
+                return 'FAILED'
+            case 'refunded':
+                return 'REFUNDED'
+            default:
+                return status.toUpperCase()
         }
     }
 
@@ -163,7 +189,7 @@ export default function ReceiptPage() {
                             >
                                 <div className="flex items-center justify-between mb-4">
                                     <Badge className={getStatusColor(receipt.status)}>
-                                        {receipt.status.toUpperCase()}
+                                        {getStatusText(receipt.status)}
                                     </Badge>
                                     <div className="flex items-center gap-2 text-xs text-zinc-500">
                                         <Clock className="w-3 h-3" />
@@ -182,7 +208,7 @@ export default function ReceiptPage() {
                                                 onClick={() => copyToClipboard(receipt.transactionId)}
                                                 className="shrink-0"
                                             >
-                                                {copied ? <CheckCircle className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                                                {copied ? <CheckCircle className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-white" />}
                                             </Button>
                                         </div>
                                     </div>

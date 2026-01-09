@@ -135,38 +135,9 @@ export function Footer() {
                     </div>
                 </div>
 
-                {/* Social & Contact Section */}
+                {/* Contact Section */}
                 <div className="mt-12 pt-8 border-t border-white/5">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                        {/* Social Links */}
-                        <div className="flex items-center gap-4">
-                            <span className="text-sm text-white">Follow us:</span>
-                            <a 
-                                href="https://twitter.com/itswapfun" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-purple-500/20 hover:border-purple-500/50 transition-all"
-                            >
-                                <Twitter className="h-4 w-4 text-white" />
-                            </a>
-                            <a 
-                                href="https://t.me/itswapfun" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-purple-500/20 hover:border-purple-500/50 transition-all"
-                            >
-                                <Send className="h-4 w-4 text-white" />
-                            </a>
-                            <a 
-                                href="https://pump.fun/coin/itswap" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-white hover:bg-purple-500/20 hover:border-purple-500/50 transition-all"
-                            >
-                                Pump.fun
-                            </a>
-                        </div>
-
                         {/* Contact */}
                         <div className="flex items-center gap-2">
                             <span className="text-sm text-white">Support:</span>

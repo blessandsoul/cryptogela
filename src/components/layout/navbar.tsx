@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { AxiomIcon } from "@/components/ui/axiom-icon"
+import { PumpFunIcon } from "@/components/ui/pumpfun-icon"
 import {
     Menu,
     X,
@@ -112,7 +113,7 @@ export function Navbar() {
                         <Button
                             onClick={handleCopyCA}
                             size="lg"
-                            className="relative group font-black text-base bg-green-500 border border-green-600 text-black hover:bg-green-600 rounded-full px-6 py-3 transition-all hover:scale-105"
+                            className="relative group font-black text-base bg-primary border border-primary/20 text-black hover:bg-primary/90 rounded-full px-6 py-3 transition-all hover:scale-105 shadow-[0_0_4rem_rgba(0,255,189,0.4)] hover:shadow-[0_0_6rem_rgba(0,255,189,0.6)]"
                         >
                             <Copy className="w-5 h-5 mr-2" />
                             {copied ? "Copied!" : "Contract Address"}
@@ -123,7 +124,7 @@ export function Navbar() {
                                 size="lg"
                                 className="relative group font-black text-base bg-purple-600 border border-purple-700 text-white hover:bg-purple-700 rounded-full px-6 py-3 transition-all hover:scale-105"
                             >
-                                <Zap className="w-5 h-5 mr-2 animate-pulse" />
+                                <Rocket className="w-5 h-5 mr-2" />
                                 Buy $ITSWAP Memecoin
                                 <ChevronDown className={cn("w-4 h-4 ml-2 transition-transform", buyDropdownOpen && "rotate-180")} />
                             </Button>
@@ -137,24 +138,24 @@ export function Navbar() {
                                         className="absolute top-full mt-2 right-0 w-64 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl overflow-hidden z-50"
                                     >
                                         <Link
-                                            href="https://axiom.trade"
+                                            href="https://pump.fun"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             onClick={() => setBuyDropdownOpen(false)}
                                             className="flex items-center gap-3 px-6 py-4 text-white hover:bg-zinc-800 transition-colors border-b border-zinc-800"
                                         >
-                                            <Rocket className="w-5 h-5 text-primary" />
-                                            <span className="font-bold">Buy on AXIOM</span>
+                                            <PumpFunIcon className="w-5 h-5 text-primary" />
+                                            <span className="font-bold">Buy on PumpFun</span>
                                         </Link>
                                         <Link
-                                            href="https://pump.fun"
+                                            href="https://axiom.trade"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             onClick={() => setBuyDropdownOpen(false)}
                                             className="flex items-center gap-3 px-6 py-4 text-white hover:bg-zinc-800 transition-colors"
                                         >
                                             <AxiomIcon className="w-5 h-5" />
-                                            <span className="font-bold">Buy on PUMPFUN</span>
+                                            <span className="font-bold">Buy on Axiom</span>
                                         </Link>
                                     </motion.div>
                                 )}
@@ -234,30 +235,6 @@ export function Navbar() {
                                 </motion.div>
                             ))}
 
-                            {/* Mobile CTA */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4 }}
-                                className="pt-6 w-full max-w-xs"
-                            >
-                                <Button
-                                    asChild
-                                    size="lg"
-                                    className="w-full font-black text-lg bg-gradient-to-r from-primary to-emerald-400 text-black rounded-2xl py-6 shadow-[0_0_40px_rgba(0,255,189,0.4)]"
-                                >
-                                    <Link
-                                        href="https://pump.fun"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                        <Zap className="w-6 h-6 mr-2" />
-                                        Buy $ITSWAP Memecoin
-                                        <Rocket className="w-5 h-5 ml-2" />
-                                    </Link>
-                                </Button>
-                            </motion.div>
                         </motion.div>
                     </motion.div>
                 )}

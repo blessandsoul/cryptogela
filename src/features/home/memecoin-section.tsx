@@ -1,25 +1,27 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Rocket, Twitter, Send, ExternalLink } from "lucide-react"
+import { Twitter, Send, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AxiomIcon } from "@/components/ui/axiom-icon"
+import { PumpFunIcon } from "@/components/ui/pumpfun-icon"
+import Image from "next/image"
 
 const socialLinks = [
     {
         name: "PumpFun",
         description: "Trade $ITSWAP on Pump.fun",
-        icon: Rocket,
+        icon: PumpFunIcon,
         href: "https://pump.fun",
-        color: "from-purple-500 to-pink-500",
-        hoverGlow: "rgba(168, 85, 247, 0.4)",
+        color: "from-transparent to-transparent",
+        hoverGlow: "rgba(255, 255, 255, 0.3)",
     },
     {
         name: "Twitter",
         description: "Follow us for updates",
         icon: Twitter,
-        href: "https://twitter.com/itswap",
-        color: "from-blue-400 to-blue-600",
+        href: "https://x.com/itswapexchange",
+        color: "from-transparent to-transparent",
         hoverGlow: "rgba(59, 130, 246, 0.4)",
     },
     {
@@ -27,16 +29,16 @@ const socialLinks = [
         description: "Join our community",
         icon: Send,
         href: "https://t.me/itswap",
-        color: "from-cyan-400 to-blue-500",
+        color: "from-transparent to-transparent",
         hoverGlow: "rgba(34, 211, 238, 0.4)",
     },
     {
-        name: "Axiom.pro",
+        name: "Axiom",
         description: "Professional trading platform",
         icon: AxiomIcon,
         href: "https://axiom.trade",
-        color: "from-emerald-500 to-teal-600",
-        hoverGlow: "rgba(16, 185, 129, 0.4)",
+        color: "from-transparent to-transparent",
+        hoverGlow: "rgba(255, 255, 255, 0.3)",
     },
 ]
 
@@ -59,22 +61,8 @@ export function MemecoinSection() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <motion.div
-                        initial={{ scale: 0.9, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
-                    >
-                        <Rocket className="w-4 h-4 text-primary animate-bounce" />
-                        <span className="text-sm font-bold text-primary">$ITSWAP MEMECOIN</span>
-                    </motion.div>
-
                     <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
-                        <span className="bg-gradient-to-r from-white via-primary to-white bg-clip-text text-transparent">
-                            Join the
-                        </span>{" "}
-                        <span className="text-primary">Revolution</span>
+                        <span className="text-primary">Follow us</span>
                     </h2>
                     <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
                         Connect with our community and stay updated on the latest $ITSWAP news, features, and exclusive opportunities.
@@ -114,7 +102,7 @@ export function MemecoinSection() {
                                                 style={{ boxShadow: `0 0 0 ${link.hoverGlow}` }}
                                             >
                                                 <div className="w-full h-full rounded-2xl bg-zinc-900 flex items-center justify-center">
-                                                    <link.icon className="w-8 h-8 text-white" />
+                                                    {link.icon && <link.icon className="w-8 h-8 text-white" />}
                                                 </div>
                                             </div>
                                             <ExternalLink className="w-5 h-5 text-zinc-600 group-hover:text-primary transition-colors" />

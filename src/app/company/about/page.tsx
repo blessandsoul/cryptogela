@@ -153,7 +153,7 @@ export default function AboutUs() {
                     </section>
 
                     <section className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-lg p-8">
-                        <h2 className="text-3xl font-semibold text-white mb-4">Join The Revolution</h2>
+                        <h2 className="text-3xl font-semibold text-white mb-4">Join The Socials</h2>
                         <p className="text-muted-foreground/80 leading-relaxed text-lg mb-6">
                             itSwap.fun is more than just an exchange—it's a movement towards a more open, fair, and decentralized financial system. Join thousands of users who have already made the switch to true financial freedom.
                         </p>
@@ -180,7 +180,7 @@ export default function AboutUs() {
                             </p>
                             <p className="text-muted-foreground/80">
                                 <strong className="text-white">Twitter:</strong>{" "}
-                                <a href="https://twitter.com/itswapfun" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300">
+                                <a href="https://x.com/itswapexchange" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300">
                                     @itswapfun
                                 </a>
                             </p>

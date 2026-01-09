@@ -399,6 +399,23 @@ export const useExchangeStore = create<ExchangeStore>((set, get) => ({
             // Update step based on status
             if (data.status === "finished") {
                 set({ step: "complete" });
+                
+                // Update receipt status if receipt was created
+                const { receiptId } = get();
+                if (receiptId) {
+                    try {
+                        await fetch('/api/receipt/update-status', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                receiptId,
+                                status: 'finished'
+                            })
+                        });
+                    } catch (error) {
+                        console.error('Failed to update receipt status:', error);
+                    }
+                }
             } else if (["exchanging", "sending", "confirming"].includes(data.status)) {
                 set({ step: "processing" });
             }
