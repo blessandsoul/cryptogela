@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Twitter, Send, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 

@@ -5,7 +5,6 @@ import { Twitter, Send, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AxiomIcon } from "@/components/ui/axiom-icon"
 import { PumpFunIcon } from "@/components/ui/pumpfun-icon"
-import Image from "next/image"
 
 const socialLinks = [
     {

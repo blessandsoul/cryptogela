@@ -13,7 +13,6 @@ import {
     Rocket,
     Coins,
     HelpCircle,
-    Zap,
     Calculator,
     Copy,
     ChevronDown,
