@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     siteName: 'itSwap.fun',
     images: [
       {
-        url: '/og-image.svg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'itSwap.fun - Non-Custodial Crypto Exchange',
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: 'itSwap.fun | Non-Custodial Crypto Exchange',
     description: 'Swap 500+ cryptocurrencies with zero platform fees. Non-custodial, no KYC required.',
     creator: '@itswapfun',
-    images: ['/og-image.svg'],
+    images: ['/og-image.png'],
   },
   icons: {
     icon: [
