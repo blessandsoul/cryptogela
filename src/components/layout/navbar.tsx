@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -82,16 +83,18 @@ export function Navbar() {
                         className="group flex items-center gap-3 transition-all hover:opacity-90"
                     >
                         <motion.div
-                            className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-emerald-500 to-primary border-2 border-primary/50 flex items-center justify-center overflow-hidden shadow-[0_0_20px_rgba(0,255,189,0.3)]"
-                            whileHover={{ scale: 1.1, rotate: 5 }}
+                            className="relative w-12 h-12 flex items-center justify-center"
+                            whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <motion.div
-                                animate={{ rotate: 360 }}
-                                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                                className="absolute inset-0 bg-gradient-conic from-primary via-emerald-400 to-primary opacity-50"
+                            <Image
+                                src="/logo.png"
+                                alt="itSwap Logo"
+                                width={48}
+                                height={48}
+                                className="w-12 h-12 object-contain"
+                                priority
                             />
-                            <Rocket className="w-6 h-6 text-black relative z-10" />
                         </motion.div>
 
                         <div className="flex flex-col">
