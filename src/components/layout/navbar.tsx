@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { AxiomIcon } from "@/components/ui/axiom-icon"
+import { JupiterLogo } from "@/components/ui/jupiter-logo"
 import {
     Menu,
     X,
@@ -82,21 +83,6 @@ export function Navbar() {
                         href="/"
                         className="group flex items-center gap-3 transition-all hover:opacity-90"
                     >
-                        <motion.div
-                            className="relative w-12 h-12 flex items-center justify-center"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <Image
-                                src="/logo.png"
-                                alt="itSwap Logo"
-                                width={48}
-                                height={48}
-                                className="w-12 h-12 object-contain"
-                                priority
-                            />
-                        </motion.div>
-
                         <div className="flex flex-col">
                             <div className="flex items-baseline gap-0.5">
                                 <span className="text-2xl md:text-3xl font-black tracking-tight">

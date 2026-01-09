@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://itswap.fun'),
   title: {
-    default: 'itSwap.fun | Non-Custodial Crypto Exchange | 500+ Coins',
+    default: 'itSwap.fun',
     template: '%s | itSwap.fun'
   },
   description: 'Secure, non-custodial cryptocurrency exchange. Swap 500+ coins with zero platform fees. No KYC required. Buy $ITSWAP tokens on Solana.',

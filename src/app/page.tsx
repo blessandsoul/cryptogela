@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/layout/navbar";
 import { HeroSection } from "@/features/home/hero-section";
-import { PartnersSection } from "@/features/home/partners-section";
 import { FeaturesSection } from "@/features/home/features-section";
 import { CalculatorSection } from "@/features/home/calculator-section";
 import { TradingSection } from "@/features/home/trading-section";
@@ -21,13 +20,12 @@ import { ChatWidget } from "@/components/layout/chat-widget";
  * 
  * Section Order (Optimized for Conversion):
  * 1. Hero → Immediate value proposition & primary CTA
- * 2. Partners → Social proof (trust first)
- * 3. Features → What makes us different
- * 4. Trading Area → Primary conversion action
- * 5. Comparison → Overcome objections
- * 6. Calculator → Interactive engagement (pre-conversion hook)
- * 7. Security → Trust reinforcement
- * 8. FAQ → Address remaining concerns
+ * 2. Features → What makes us different
+ * 3. Trading Area → Primary conversion action
+ * 4. Comparison → Overcome objections
+ * 5. Calculator → Interactive engagement (pre-conversion hook)
+ * 6. Security → Trust reinforcement
+ * 7. FAQ → Address remaining concerns
  */
 export default function Home() {
   return (
@@ -41,9 +39,6 @@ export default function Home() {
 
       {/* Hero: Animated gradient, 3D elements, trust counters, primary CTA */}
       <HeroSection />
-
-      {/* Partners: Immediate social proof - builds trust before features */}
-      <PartnersSection />
 
       {/* ═══════════════════════════════════════════════════════════════
           VALUE PROPOSITION: Why choose itSwap?
