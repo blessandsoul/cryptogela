@@ -1,0 +1,12 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="phantomGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#AB9FF2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4E44CE;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path d="M60 20C40 20 25 35 25 55C25 75 35 90 50 95C55 97 60 98 65 98C70 98 75 97 80 95C95 90 105 75 105 55C105 35 90 20 70 20C65 20 62.5 20 60 20Z" fill="url(#phantomGradient)"/>
+  <circle cx="50" cy="55" r="5" fill="#000"/>
+  <circle cx="70" cy="55" r="5" fill="#000"/>
+  <path d="M45 70Q60 75 75 70" stroke="#000" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>
