@@ -181,8 +181,7 @@ export function HeroSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.8 }}
                         className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 leading-[1.1] px-4"
-                        style={{ textWrap: 'balance' as any }}
-                    >
+                                            >
                         <span className="block bg-gradient-to-b from-purple-400 via-purple-400 to-purple-400/40 bg-clip-text text-transparent">
                             The Future of
                         </span>
