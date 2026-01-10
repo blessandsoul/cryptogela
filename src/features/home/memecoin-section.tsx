@@ -136,7 +136,7 @@ export function MemecoinSection() {
                     className="text-center mt-12"
                 >
                     <p className="text-zinc-600 text-sm">
-                        Be part of the fastest-growing memecoin community
+                        Be part of the fastest-growing community
                     </p>
                 </motion.div>
             </div>

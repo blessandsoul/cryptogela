@@ -22,7 +22,7 @@ import {
 const navLinks = [
     { href: "#exchange", label: "Exchange", icon: Coins },
     { href: "#calculator", label: "Calculate", icon: Calculator },
-    { href: "#memecoin", label: "Our Memecoin", icon: Rocket },
+    { href: "#memecoin", label: "Our Token", icon: Rocket },
     { href: "#beta-app", label: "Get App", icon: Download },
     { href: "#faq", label: "FAQ", icon: HelpCircle },
 ]
@@ -124,7 +124,7 @@ export function Navbar() {
                                 className="relative group font-black text-base bg-purple-600 border border-purple-700 text-white hover:bg-purple-700 rounded-full px-6 py-3 transition-all hover:scale-105"
                             >
                                 <Rocket className="w-5 h-5 mr-2" />
-                                Buy $ITSWAP Memecoin
+                                Buy Token
                                 <ChevronDown className={cn("w-4 h-4 ml-2 transition-transform", buyDropdownOpen && "rotate-180")} />
                             </Button>
                             <AnimatePresence>

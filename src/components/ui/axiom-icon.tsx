@@ -11,10 +11,10 @@ const AxiomIcon: React.FC<AxiomIconProps> = (props) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    {/* Triangle - top part */}
-    <path d="M12 4L4 12H20L12 4Z" fill="currentColor" />
-    {/* Trapezoid - bottom part */}
-    <path d="M4 15H20L18 20H6L4 15Z" fill="currentColor" />
+    {/* Triangle - top part (pointing up) */}
+    <path d="M12 4L20 12H4L12 4Z" fill="currentColor" />
+    {/* Trapezoid - bottom part (wider at bottom) */}
+    <path d="M6 14H18L20 20H4L6 14Z" fill="currentColor" />
   </svg>
 )
 
