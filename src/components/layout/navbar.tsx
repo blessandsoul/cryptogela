@@ -68,22 +68,22 @@ export function Navbar() {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className={cn(
-                    "fixed top-0 z-50 w-full transition-all duration-500",
+                    "fixed top-0 z-50 w-full transition-all duration-500 safe-top",
                     scrolled
                         ? "bg-black/90 backdrop-blur-xl border-b border-zinc-800/50 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
                         : "bg-black/50 backdrop-blur-sm border-b border-transparent"
                 )}
             >
-                <div className="container mx-auto flex h-16 md:h-20 items-center justify-between px-4 md:px-6">
+                <div className="container mx-auto flex h-16 md:h-20 items-center justify-between px-4 md:px-6 max-w-full">
 
                     {/* Logo */}
                     <Link
                         href="/"
-                        className="group flex items-center gap-3 transition-all hover:opacity-90"
+                        className="group flex items-center gap-3 transition-all hover:opacity-90 flex-shrink-0"
                     >
                         <div className="flex flex-col">
                             <div className="flex items-baseline gap-0.5">
-                                <span className="text-2xl md:text-3xl font-black tracking-tight">
+                                <span className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight whitespace-nowrap">
                                     <span className="text-primary">it</span>
                                     <span className="text-purple-400">Swap</span>
                                 </span>
@@ -166,8 +166,9 @@ export function Navbar() {
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="md:hidden relative z-50 w-12 h-12 rounded-xl bg-zinc-900/80 border border-zinc-800"
+                        className="md:hidden relative z-50 w-12 h-12 min-w-[48px] min-h-[48px] rounded-xl bg-zinc-900/80 border border-zinc-800 flex-shrink-0"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        aria-label="Toggle menu"
                     >
                         <AnimatePresence mode="wait">
                             {mobileMenuOpen ? (
@@ -204,14 +205,15 @@ export function Navbar() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed inset-0 z-40 bg-black/98 backdrop-blur-xl md:hidden"
+                        className="fixed inset-0 z-40 bg-black/98 backdrop-blur-xl md:hidden overflow-y-auto"
+                        style={{ minHeight: '100svh' }}
                     >
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 20 }}
                             transition={{ delay: 0.1 }}
-                            className="flex flex-col items-center justify-center min-h-screen gap-6 p-6"
+                            className="flex flex-col items-center justify-center min-h-screen gap-6 p-6 pt-24"
                         >
                             {/* Mobile Nav Links */}
                             {navLinks.map((link, index) => (
@@ -224,9 +226,9 @@ export function Navbar() {
                                     <Link
                                         href={link.href}
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className="flex items-center gap-4 text-2xl font-bold text-purple-400 hover:text-primary transition-colors px-6 py-3 rounded-2xl hover:bg-zinc-900"
+                                        className="flex items-center gap-4 text-xl sm:text-2xl font-bold text-purple-400 hover:text-primary transition-colors px-6 py-4 rounded-2xl hover:bg-zinc-900 active:scale-95 min-h-[60px] w-full max-w-md"
                                     >
-                                        <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center">
+                                        <div className="w-12 h-12 min-w-[48px] min-h-[48px] rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center flex-shrink-0">
                                             <link.icon className="w-6 h-6 text-primary" />
                                         </div>
                                         {link.label}

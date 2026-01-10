@@ -57,12 +57,13 @@ function CurrencySelector({
     }, [currencies, search])
 
     return (
-        <div className="relative z-[100]">
+        <div className="relative z-10 w-full sm:w-auto">
             <button
                 type="button"
                 onClick={() => setOpen(!open)}
                 disabled={disabled}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-800 border border-zinc-700 hover:border-primary/50 transition-colors disabled:opacity-50"
+                className="flex items-center gap-2 px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 hover:border-primary/50 active:border-primary active:bg-zinc-700 transition-colors disabled:opacity-50 w-full sm:w-auto justify-between sm:justify-start min-h-[52px] touch-manipulation"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
             >
                 {selectedCurrency ? (
                     <>
@@ -85,12 +86,14 @@ function CurrencySelector({
             <AnimatePresence>
                 {open && (
                     <>
-                        <div className="fixed inset-0 z-[90]" onClick={() => setOpen(false)} />
+                        <div className="fixed inset-0 z-[200]" onClick={() => setOpen(false)} />
                         <motion.div
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            className="absolute top-full left-0 mt-2 z-[110] w-80 bg-zinc-900 border border-zinc-800 rounded-xl shadow-xl overflow-hidden"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.15 }}
+                            className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 sm:absolute sm:top-full sm:left-0 sm:right-auto sm:translate-x-0 sm:translate-y-0 mt-0 sm:mt-2 z-[210] w-[calc(100vw-2rem)] sm:w-80 max-w-[min(400px,calc(100vw-2rem))] bg-zinc-900 border-2 border-zinc-700 rounded-2xl shadow-2xl overflow-hidden"
+                            style={{ maxHeight: 'calc(100vh - 4rem)' }}
                         >
                             <div className="p-2 border-b border-zinc-800">
                                 <div className="relative">
@@ -100,7 +103,8 @@ function CurrencySelector({
                                         placeholder="Search..."
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
-                                        className="w-full pl-9 pr-8 py-2 bg-zinc-800 border-none rounded-lg text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-primary"
+                                        className="w-full pl-9 pr-8 py-3 bg-zinc-800 border-none rounded-lg text-base text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-primary touch-manipulation"
+                                        style={{ fontSize: '16px', WebkitTapHighlightColor: 'transparent' }}
                                         autoFocus
                                     />
                                     {search && (
@@ -110,13 +114,14 @@ function CurrencySelector({
                                     )}
                                 </div>
                             </div>
-                            <div className="max-h-64 overflow-y-auto">
+                            <div className="max-h-[60vh] overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
                                 {filteredCurrencies.slice(0, 50).map((currency) => (
                                     <button
                                         key={currency.ticker}
                                         type="button"
                                         onClick={() => { onChange(currency.ticker); setOpen(false); setSearch("") }}
-                                        className={`flex items-center gap-3 w-full p-3 hover:bg-zinc-800 transition-colors ${value === currency.ticker ? 'bg-primary/10' : ''}`}
+                                        className={`flex items-center gap-3 w-full p-4 hover:bg-zinc-800 active:bg-zinc-700 transition-colors touch-manipulation ${value === currency.ticker ? 'bg-primary/10' : ''}`}
+                                        style={{ WebkitTapHighlightColor: 'transparent', minHeight: '56px' }}
                                     >
                                         <div className="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden">
                                             {currency.image ? (
@@ -248,9 +253,9 @@ export function ExchangeWidget() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="w-full"
+            className="w-full max-w-full overflow-hidden"
         >
-            <Card className="relative overflow-visible border-2 border-zinc-800 bg-zinc-950 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+            <Card className="relative overflow-visible border-2 border-zinc-800 bg-zinc-950 shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full">
                 <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary via-emerald-400 to-primary" />
 
                 <CardHeader className="pb-3">
@@ -264,17 +269,17 @@ export function ExchangeWidget() {
                     <AnimatePresence mode="wait">
                         {/* Step 1: Input */}
                         {step === "input" && (
-                            <motion.div key="input" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}>
-                                <div className="flex flex-col lg:flex-row items-stretch gap-3">
+                            <motion.div key="input" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="w-full">
+                                <div className="flex flex-col lg:flex-row items-stretch gap-3 w-full">
                                     {/* You Send */}
-                                    <div className="flex-1 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                                    <div className="flex-1 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 w-full lg:w-auto">
                                         <label className="text-xs text-zinc-500 mb-2 block">You Send</label>
-                                        <div className="flex items-center gap-3">
+                                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full">
                                             <Input
                                                 type="number"
                                                 value={amount}
                                                 onChange={(e) => setAmount(e.target.value)}
-                                                className="flex-1 bg-zinc-800/50 border-zinc-700 text-xl font-bold text-white h-12 focus:border-primary"
+                                                className="flex-1 bg-zinc-800/50 border-zinc-700 text-xl font-bold text-white h-12 focus:border-primary w-full"
                                                 placeholder="0.00"
                                             />
                                             <CurrencySelector value={fromCurrency} onChange={setFromCurrency} currencies={currencies} disabled={currenciesLoading} />
@@ -295,10 +300,10 @@ export function ExchangeWidget() {
                                     </div>
 
                                     {/* You Get */}
-                                    <div className="flex-1 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                                    <div className="flex-1 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 w-full lg:w-auto">
                                         <label className="text-xs text-zinc-500 mb-2 block">You Get (estimated)</label>
-                                        <div className="flex items-center gap-3">
-                                            <div className="flex-1 h-12 px-3 rounded-md bg-zinc-800/50 border border-zinc-700 flex items-center">
+                                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full">
+                                            <div className="flex-1 h-12 px-3 rounded-md bg-zinc-800/50 border border-zinc-700 flex items-center w-full">
                                                 {estimateLoading ? (
                                                     <Loader2 className="w-5 h-5 animate-spin text-primary" />
                                                 ) : estimateError ? (

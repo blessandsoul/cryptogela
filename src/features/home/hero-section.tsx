@@ -128,7 +128,8 @@ export function HeroSection() {
     return (
         <section
             ref={containerRef}
-            className="relative min-h-[100vh] flex items-center justify-center overflow-hidden pt-20 md:pt-24"
+            className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24 w-full"
+            style={{ minHeight: '100svh' }}
         >
             {/* Layered Background Effects */}
             <div className="absolute inset-0 z-0">
@@ -179,8 +180,8 @@ export function HeroSection() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.8 }}
-                        className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 leading-[1.1]"
-                        style={{ textWrap: 'balance' }}
+                        className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 leading-[1.1] px-4"
+                        style={{ textWrap: 'balance' as any }}
                     >
                         <span className="block bg-gradient-to-b from-purple-400 via-purple-400 to-purple-400/40 bg-clip-text text-transparent">
                             The Future of
@@ -200,7 +201,7 @@ export function HeroSection() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.6 }}
-                        className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed font-light"
+                        className="text-lg sm:text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed font-light px-4"
                     >
                         Non-custodial. Instant. Secure. Exchange any cryptocurrency for SOL and trade <span className="font-medium text-zinc-400">$ITSWAP</span> directly.
                     </motion.p>
@@ -210,13 +211,13 @@ export function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.8 }}
-                        className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-10"
+                        className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 px-4 w-full max-w-2xl mx-auto"
                     >
                         <Link
                             href="#exchange"
                             className={cn(
                                 buttonVariants({ size: "lg" }),
-                                "group relative px-10 py-7 text-lg font-bold bg-primary text-black hover:bg-primary/90 rounded-2xl shadow-[0_0_4rem_rgba(0,255,189,0.4)] hover:shadow-[0_0_6rem_rgba(0,255,189,0.6)] transition-all duration-500 hover:scale-[1.02]"
+                                "group relative w-full sm:w-auto px-8 sm:px-10 py-6 sm:py-7 text-base sm:text-lg font-bold bg-primary text-black hover:bg-primary/90 rounded-2xl shadow-[0_0_4rem_rgba(0,255,189,0.4)] hover:shadow-[0_0_6rem_rgba(0,255,189,0.6)] transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
                             )}
                         >
                             <span className="relative z-10 flex items-center">
@@ -228,7 +229,7 @@ export function HeroSection() {
                             href="#faq"
                             className={cn(
                                 buttonVariants({ variant: "outline", size: "lg" }),
-                                "group px-10 py-7 text-lg font-medium rounded-2xl border-zinc-700/50 bg-zinc-900/50 backdrop-blur-sm hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-300 shadow-[0_0_2rem_rgba(0,0,0,0.5)] hover:shadow-[0_0_3rem_rgba(0,255,189,0.1)] text-white"
+                                "group w-full sm:w-auto px-8 sm:px-10 py-6 sm:py-7 text-base sm:text-lg font-medium rounded-2xl border-zinc-700/50 bg-zinc-900/50 backdrop-blur-sm hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-300 shadow-[0_0_2rem_rgba(0,0,0,0.5)] hover:shadow-[0_0_3rem_rgba(0,255,189,0.1)] text-white active:scale-[0.98]"
                             )}
                         >
                             <span className="flex items-center gap-2 text-white">

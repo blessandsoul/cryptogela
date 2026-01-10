@@ -36,6 +36,23 @@ export const metadata: Metadata = {
   authors: [{ name: 'itSwap.fun Team' }],
   creator: 'itSwap.fun',
   publisher: 'itSwap.fun',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    minimumScale: 1,
+    userScalable: false,
+    viewportFit: 'cover',
+    interactiveWidget: 'resizes-content',
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'itSwap.fun',
+  },
+  formatDetection: {
+    telephone: false,
+  },
   robots: {
     index: true,
     follow: true,

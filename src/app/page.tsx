@@ -29,7 +29,7 @@ import { ChatWidget } from "@/components/layout/chat-widget";
  */
 export default function Home() {
   return (
-    <main suppressHydrationWarning className="min-h-screen relative overflow-hidden bg-black">
+    <main suppressHydrationWarning className="min-h-screen relative overflow-x-hidden overflow-y-auto bg-black w-full">
       {/* Navigation - Glassmorphic sticky header */}
       <Navbar />
 
