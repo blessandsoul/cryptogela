@@ -53,7 +53,7 @@ export function Navbar() {
 
     const handleCopyCA = async () => {
         try {
-            await navigator.clipboard.writeText("CA_ADDRESS_HERE")
+            await navigator.clipboard.writeText("4B4ntz3b96HjtdpxFcVqGR8wy9gsoh5ZACgRacWDswap")
             setCopied(true)
             setTimeout(() => setCopied(false), 2000)
         } catch (err) {
@@ -137,7 +137,7 @@ export function Navbar() {
                                         className="absolute top-full mt-2 right-0 w-64 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl overflow-hidden z-50"
                                     >
                                         <Link
-                                            href="https://pump.fun"
+                                            href="https://pump.fun/coin/4B4ntz3b96HjtdpxFcVqGR8wy9gsoh5ZACgRacWDswap"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             onClick={() => setBuyDropdownOpen(false)}
@@ -147,7 +147,7 @@ export function Navbar() {
                                             <span className="font-bold">Buy on PumpFun</span>
                                         </Link>
                                         <Link
-                                            href="https://axiom.trade"
+                                            href="https://axiom.trade/meme/4B4ntz3b96HjtdpxFcVqGR8wy9gsoh5ZACgRacWDswap?chain=sol"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             onClick={() => setBuyDropdownOpen(false)}
