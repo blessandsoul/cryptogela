@@ -12,7 +12,7 @@ export function Footer() {
                     {/* Brand Column */}
                     <div className="lg:col-span-1">
                         <h3 className="text-xl font-bold mb-4">
-                            <span className="text-primary">it</span><span className="text-purple-500">Swap</span><span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">.fun</span>
+                            <span className="text-white">itSwap.fun</span>
                         </h3>
                         <p className="text-sm text-white mb-6">
                             Non-custodial crypto exchange. 500+ coins. Zero platform fees. No KYC required.
@@ -156,7 +156,7 @@ export function Footer() {
             <div className="border-t border-white/5 bg-black/80">
                 <div className="container mx-auto px-4 py-6">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white">
-                        <p>© 2026 <span className="text-primary">it</span><span className="text-purple-500">Swap</span>.fun. All rights reserved. | Powered by Solana</p>
+                        <p>© 2026 <span className="text-white">itSwap.fun</span>. All rights reserved. | Powered by Solana</p>
                         <p className="text-center md:text-right">
                             Cryptocurrency trading involves risk. Always do your own research (DYOR).
                         </p>

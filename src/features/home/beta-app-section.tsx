@@ -2,11 +2,13 @@
 
 import { motion } from "framer-motion"
 import { QRCodeSVG } from "qrcode.react"
-import { Download, ExternalLink } from "lucide-react"
+import { Download, ExternalLink, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 export function BetaAppSection() {
     const apkDownloadUrl = "https://itswap.fun/itswap-beta.apk"
+    const [copied, setCopied] = useState(false)
 
     const handleDirectDownload = () => {
         const link = document.createElement("a")
@@ -15,6 +17,12 @@ export function BetaAppSection() {
         document.body.appendChild(link)
         link.click()
         document.body.removeChild(link)
+    }
+
+    const handleCopyLink = async () => {
+        await navigator.clipboard.writeText(apkDownloadUrl)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
     }
 
     return (
@@ -56,7 +64,7 @@ export function BetaAppSection() {
                         </span>
                     </h2>
 
-                    <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-12 px-4">
+                    <p className="text-lg sm:text-xl text-white max-w-2xl mx-auto leading-relaxed mb-12 px-4">
                         Download our exclusive Android beta app and experience the future of crypto trading on mobile. Your feedback shapes our product.
                     </p>
 
@@ -82,28 +90,23 @@ export function BetaAppSection() {
                         </p>
 
                         <div className="flex flex-col w-full gap-3">
-                            <Button
-                                onClick={handleDirectDownload}
-                                className="w-full bg-primary hover:bg-primary/90 text-black font-semibold min-h-[48px] active:scale-95 transition-transform"
+                            <a
+                                href={apkDownloadUrl}
+                                download="itswap-beta.apk"
+                                className="w-full bg-primary hover:bg-primary/90 text-black font-semibold min-h-[48px] active:scale-95 transition-transform rounded-lg flex items-center justify-center px-4 py-3 no-underline"
                             >
                                 <Download className="mr-2 h-4 w-4" />
                                 Download APK
-                            </Button>
-
-                            <a
-                                href={apkDownloadUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-full"
-                            >
-                                <Button
-                                    variant="outline"
-                                    className="w-full border-zinc-700 hover:bg-zinc-800 min-h-[48px] active:scale-95 transition-transform"
-                                >
-                                    <ExternalLink className="mr-2 h-4 w-4" />
-                                    Open in New Tab
-                                </Button>
                             </a>
+
+                            <Button
+                                onClick={handleCopyLink}
+                                variant="outline"
+                                className="w-full border-zinc-700 hover:bg-zinc-800 hover:text-white min-h-[48px] active:scale-95 transition-transform text-white"
+                            >
+                                <Copy className="mr-2 h-4 w-4" />
+                                {copied ? 'Link Copied!' : 'https://itswap.fun/itswap-beta.apk'}
+                            </Button>
                         </div>
                     </div>
 
