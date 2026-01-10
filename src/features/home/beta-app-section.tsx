@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { QRCodeSVG } from "qrcode.react"
-import { Download, ExternalLink, Copy } from "lucide-react"
+import { Download, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 
@@ -10,15 +10,7 @@ export function BetaAppSection() {
     const apkDownloadUrl = "https://itswap.fun/itswap-beta.apk"
     const [copied, setCopied] = useState(false)
 
-    const handleDirectDownload = () => {
-        const link = document.createElement("a")
-        link.href = "/itswap-beta.apk"
-        link.download = "itswap-beta.apk"
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
-    }
-
+    
     const handleCopyLink = async () => {
         await navigator.clipboard.writeText(apkDownloadUrl)
         setCopied(true)
