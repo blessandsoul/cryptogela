@@ -57,7 +57,7 @@ function CurrencySelector({
     }, [currencies, search])
 
     return (
-        <div className="relative z-10 w-full sm:w-auto">
+        <div className="relative w-full sm:w-auto">
             <button
                 type="button"
                 onClick={() => setOpen(!open)}
@@ -86,57 +86,56 @@ function CurrencySelector({
             <AnimatePresence>
                 {open && (
                     <>
-                        <div className="fixed inset-0 z-[200]" onClick={() => setOpen(false)} />
+                        {/* Backdrop overlay */}
+                        <div className="fixed inset-0 z-[100] bg-black/20" onClick={() => setOpen(false)} />
+                        {/* Dropdown positioned below button */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.15 }}
-                            className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 sm:absolute sm:top-full sm:left-0 sm:right-auto sm:translate-x-0 sm:translate-y-0 mt-0 sm:mt-2 z-[210] w-[calc(100vw-2rem)] sm:w-80 max-w-[min(400px,calc(100vw-2rem))] bg-zinc-900 border-2 border-zinc-700 rounded-2xl shadow-2xl overflow-hidden"
-                            style={{ maxHeight: 'calc(100vh - 4rem)' }}
+                            className="absolute top-full right-0 mt-2 z-[101] w-56 bg-zinc-900 border border-zinc-700 rounded-xl shadow-xl overflow-hidden"
                         >
                             <div className="p-2 border-b border-zinc-800">
                                 <div className="relative">
-                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                                    <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-500" />
                                     <input
                                         type="text"
                                         placeholder="Search..."
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
-                                        className="w-full pl-9 pr-8 py-3 bg-zinc-800 border-none rounded-lg text-base text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-primary touch-manipulation"
-                                        style={{ fontSize: '16px', WebkitTapHighlightColor: 'transparent' }}
+                                        className="w-full pl-7 pr-7 py-2 bg-zinc-800 border-none rounded-lg text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-primary"
                                         autoFocus
                                     />
                                     {search && (
-                                        <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2">
-                                            <X className="w-4 h-4 text-zinc-500 hover:text-white" />
+                                        <button onClick={() => setSearch("")} className="absolute right-2 top-1/2 -translate-y-1/2">
+                                            <X className="w-3.5 h-3.5 text-zinc-500 hover:text-white" />
                                         </button>
                                     )}
                                 </div>
                             </div>
-                            <div className="max-h-[60vh] overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
+                            <div className="max-h-48 overflow-y-auto overscroll-contain">
                                 {filteredCurrencies.slice(0, 50).map((currency) => (
                                     <button
                                         key={currency.ticker}
                                         type="button"
                                         onClick={() => { onChange(currency.ticker); setOpen(false); setSearch("") }}
-                                        className={`flex items-center gap-3 w-full p-4 hover:bg-zinc-800 active:bg-zinc-700 transition-colors touch-manipulation ${value === currency.ticker ? 'bg-primary/10' : ''}`}
-                                        style={{ WebkitTapHighlightColor: 'transparent', minHeight: '56px' }}
+                                        className={`flex items-center gap-2 w-full px-3 py-2 hover:bg-zinc-800 transition-colors ${value === currency.ticker ? 'bg-primary/10' : ''}`}
                                     >
-                                        <div className="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden">
+                                        <div className="w-5 h-5 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
                                             {currency.image ? (
                                                 // eslint-disable-next-line @next/next/no-img-element
-                                                <img src={currency.image} alt={currency.ticker} className="w-5 h-5" />
+                                                <img src={currency.image} alt={currency.ticker} className="w-4 h-4" />
                                             ) : (
-                                                <span className="text-xs font-bold text-zinc-400">{currency.ticker.slice(0, 2).toUpperCase()}</span>
+                                                <span className="text-[10px] font-bold text-zinc-400">{currency.ticker.slice(0, 2).toUpperCase()}</span>
                                             )}
                                         </div>
-                                        <div className="text-left flex-1">
-                                            <div className="font-medium text-white uppercase text-sm">{currency.ticker}</div>
-                                            <div className="text-xs text-zinc-500 truncate">{currency.name}</div>
+                                        <div className="text-left flex-1 min-w-0">
+                                            <div className="font-medium text-white uppercase text-xs">{currency.ticker}</div>
+                                            <div className="text-[10px] text-zinc-500 truncate">{currency.name}</div>
                                         </div>
                                         {POPULAR_CURRENCIES.includes(currency.ticker.toLowerCase()) && (
-                                            <Badge variant="secondary" className="bg-primary/10 text-primary text-[10px] shrink-0">★</Badge>
+                                            <span className="text-primary text-[10px]">★</span>
                                         )}
                                     </button>
                                 ))}
@@ -253,9 +252,9 @@ export function ExchangeWidget() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="w-full max-w-full overflow-hidden"
+            className="w-full max-w-full"
         >
-            <Card className="relative overflow-visible border-2 border-zinc-800 bg-zinc-950 shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full">
+            <Card className="relative border-2 border-zinc-800 bg-zinc-950 shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full" style={{ overflow: 'visible' }}>
                 <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary via-emerald-400 to-primary" />
 
                 <CardHeader className="pb-3">
