@@ -31,7 +31,6 @@ export function Navbar() {
     const [scrolled, setScrolled] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [copied, setCopied] = useState(false)
-    const [buyDropdownOpen, setBuyDropdownOpen] = useState(false)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -117,49 +116,6 @@ export function Navbar() {
                             <Copy className="w-5 h-5 mr-2" />
                             {copied ? "Copied!" : "Contract Address"}
                         </Button>
-                        <div className="relative">
-                            <Button
-                                onClick={() => setBuyDropdownOpen(!buyDropdownOpen)}
-                                size="lg"
-                                className="relative group font-black text-base bg-purple-600 border border-purple-700 text-white hover:bg-purple-700 rounded-full px-6 py-3 transition-all hover:scale-105"
-                            >
-                                <Rocket className="w-5 h-5 mr-2" />
-                                Buy Token
-                                <ChevronDown className={cn("w-4 h-4 ml-2 transition-transform", buyDropdownOpen && "rotate-180")} />
-                            </Button>
-                            <AnimatePresence>
-                                {buyDropdownOpen && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: -10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="absolute top-full mt-2 right-0 w-64 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl overflow-hidden z-50"
-                                    >
-                                        <Link
-                                            href="https://pump.fun"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            onClick={() => setBuyDropdownOpen(false)}
-                                            className="flex items-center gap-3 px-6 py-4 text-white hover:bg-zinc-800 transition-colors border-b border-zinc-800"
-                                        >
-                                            <PumpFunIcon className="w-5 h-5 text-primary" />
-                                            <span className="font-bold">Buy on PumpFun</span>
-                                        </Link>
-                                        <Link
-                                            href="https://axiom.trade"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            onClick={() => setBuyDropdownOpen(false)}
-                                            className="flex items-center gap-3 px-6 py-4 text-white hover:bg-zinc-800 transition-colors"
-                                        >
-                                            <AxiomIcon className="w-5 h-5" />
-                                            <span className="font-bold">Buy on Axiom</span>
-                                        </Link>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
                     </div>
 
                     {/* Mobile Menu Button */}

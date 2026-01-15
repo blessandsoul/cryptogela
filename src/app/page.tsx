@@ -79,7 +79,7 @@ export default function Home() {
           MEMECOIN COMMUNITY: Social media & community links
           ═══════════════════════════════════════════════════════════════ */}
 
-      {/* Memecoin: PumpFun, Twitter, Telegram links */}
+      {/* Memecoin: PumpFun links */}
       <MemecoinSection />
 
       {/* ═══════════════════════════════════════════════════════════════

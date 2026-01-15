@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Twitter, Send, ExternalLink } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AxiomIcon } from "@/components/ui/axiom-icon"
 import { PumpFunIcon } from "@/components/ui/pumpfun-icon"
@@ -14,22 +14,6 @@ const socialLinks = [
         href: "https://pump.fun",
         color: "from-transparent to-transparent",
         hoverGlow: "rgba(255, 255, 255, 0.3)",
-    },
-    {
-        name: "Twitter",
-        description: "Follow us for updates",
-        icon: Twitter,
-        href: "https://x.com/itswapexchange",
-        color: "from-transparent to-transparent",
-        hoverGlow: "rgba(59, 130, 246, 0.4)",
-    },
-    {
-        name: "Telegram",
-        description: "Join our community",
-        icon: Send,
-        href: "http://t.me/itswapexchange",
-        color: "from-transparent to-transparent",
-        hoverGlow: "rgba(34, 211, 238, 0.4)",
     },
     {
         name: "Axiom",
@@ -68,7 +52,7 @@ export function MemecoinSection() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                     {socialLinks.map((link, index) => (
                         <motion.div
                             key={link.name}
